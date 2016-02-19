@@ -5,9 +5,19 @@ var service = new ProductsService();
 function ProductsController(){
     var self = this;
 
-    self.list = listProducts;
+    self.getProducts = getProducts;
+    self.getCategories = getCategories;
+    self.createProduct = createProduct;
 
-    function listProducts(){
-        return service.getAllProducts();
+    function getProducts(query, filters){
+        return service.getProducts(query, filters);
+    }
+
+    function getCategories(){
+        return service.getCategories();
+    }
+
+    function createProduct(product){
+        return service.index(product);
     }
 }

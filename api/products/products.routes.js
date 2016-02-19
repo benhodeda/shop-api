@@ -4,9 +4,34 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-    controller.list().then(function(results){
+    controller.getProducts().then(function(results){
         res.json(results);
-    })
+    });
+});
+
+router.get('/categories', function(req, res, next){
+   controller.getCategories().then(function(results){
+       res.json(results);
+   });
+});
+
+router.get('/search', function(req, res, next){
+    var q = req.query.q;
+    var filters = req.query;
+    delete filters.q;
+    for(var filter in filters){
+        filters[filter] = filters[filter].split(",");
+    }
+   controller.getProducts(q, filters).then(function(results){
+       res.json(results);
+   });
+});
+
+router.post('/', function(req, res, next){
+    var product = req.body;
+    controller.createProduct(product).then(function(result){
+        res.json(result);
+    });
 });
 
 module.exports = router;
