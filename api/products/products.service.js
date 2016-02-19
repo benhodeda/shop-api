@@ -70,6 +70,8 @@ function ProductsService() {
             body: body
         }).then(function (results) {
             return results.hits.hits.map(function (result) {
+                result._source._id = result._id;
+                result._source._score = result._score;
                 return result._source;
             });
         });
