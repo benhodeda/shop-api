@@ -2,22 +2,32 @@ module.exports = ProductsController;
 var ProductsService = require('./products.service');
 var service = new ProductsService();
 
-function ProductsController(){
+function ProductsController() {
     var self = this;
 
+    self.getProduct = getProduct;
     self.getProducts = getProducts;
     self.getCategories = getCategories;
     self.createProduct = createProduct;
+    self.deleteProduct = deleteProduct;
 
-    function getProducts(query, filters){
+    function getProducts(query, filters) {
         return service.getProducts(query, filters);
     }
 
-    function getCategories(){
+    function getCategories() {
         return service.getCategories();
     }
 
-    function createProduct(product){
+    function createProduct(product) {
         return service.index(product);
+    }
+
+    function deleteProduct(id) {
+        return service.deleteProduct(id);
+    }
+
+    function getProduct(id){
+        return service.getProduct(id);
     }
 }

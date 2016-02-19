@@ -34,4 +34,18 @@ router.post('/', function(req, res, next){
     });
 });
 
+router.delete('/:id', function(req, res, next){
+    var id = req.params.id;
+    controller.deleteProduct(id).then(function(result){
+        res.json(result);
+    });
+});
+
+router.get('/:id', function(req, res, next){
+    var id = req.params.id;
+    controller.getProduct(id).then(function(result){
+        res.json(result);
+    });
+});
+
 module.exports = router;

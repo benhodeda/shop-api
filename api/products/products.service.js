@@ -5,9 +5,11 @@ var connectionString = "https://paas:bf99f452fd1c3889ec0a21fca8852b2c@dori-us-ea
 
 function ProductsService() {
     var self = this;
+    self.index = index;
+    self.getProduct = getProduct;
     self.getProducts = getProducts;
     self.getCategories = getCategories;
-    self.index = index;
+    self.deleteProduct = deleteProduct;
 
     var client = new elasticsearch.Client({
         host: connectionString
@@ -69,11 +71,14 @@ function ProductsService() {
             index: 'products',
             body: body
         }).then(function (results) {
-            return results.hits.hits.map(function (result) {
+            var hits = {};
+            hits.count = results.hits.total;
+            hits.products = results.hits.hits.map(function (result) {
                 result._source._id = result._id;
                 result._source._score = result._score;
                 return result._source;
             });
+            return hits;
         });
     }
 
@@ -85,6 +90,27 @@ function ProductsService() {
         }).then(function (response) {
             response.item = product;
             return response;
+        });
+    }
+
+    function deleteProduct(id) {
+        return client.delete({
+            index: "products",
+            type: 'ds011248_mongolab_com_f2a7',
+            id: id
+        }).then(function (response) {
+            return response;
+        });
+    }
+
+    function getProduct(id) {
+        return client.get({
+            index: "products",
+            type: 'ds011248_mongolab_com_f2a7',
+            id: id
+        }).then(function (response) {
+            response._source._id = response._id;
+            return response._source;
         });
     }
 }
