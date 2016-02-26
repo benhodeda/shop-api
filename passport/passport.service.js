@@ -23,15 +23,15 @@ function generateStrategyCallback(idField, insertUser, source) {
                         if (user) {
                             // if there is a user id already but no token (user was linked at one point and then removed)
                             if (!user[source].token) {
-                                insertUser(user, token, profile, false);
+                                insertUser(user, token, profile, false, done);
                             }
                             return done(null, user); // user found, return that user
                         } else {
-                            insertUser(new User(), token, profile, true);
+                            insertUser(new User(), token, profile, true, done);
                         }
                     });
             } else {
-                insertUser(req.user, token, profile, true);
+                insertUser(req.user, token, profile, true, done);
             }
         });
     }

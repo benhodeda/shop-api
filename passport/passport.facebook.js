@@ -8,7 +8,7 @@ function initializeFacebook(passport) {
     passport.use(new FacebookStrategy(config.authentication.facebook, service.generateStrategyCallback('facebook.id', insertUser, 'facebook')));
 }
 
-function insertUser(user, token, profile, extractId) {
+function insertUser(user, token, profile, extractId, done) {
     if(extractId) user.facebook.id = profile.id; // set the users facebook id
     user.facebook.token = token;
     user.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;

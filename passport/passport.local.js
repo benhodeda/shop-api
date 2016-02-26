@@ -23,10 +23,10 @@ function initializeLocal(passport) {
 
                     // if no user is found, return the message
                     if (!user) {
-                        return done(null, false, req.flash('loginMessage', 'No user found.'));
+                        return done(null, false, {message: 'No user found.'});
                     }
                     if (!user.validPassword(password))
-                        return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                        return done(null, false, {message: 'Oops! Wrong password.'});
 
                     // all is well, return user
                     else
@@ -54,16 +54,16 @@ function initializeLocal(passport) {
 
                         // check to see if there's already a user with that email
                         if (existingUser)
-                            return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                            return done(null, false, {message: 'That email is already taken.'});
 
                         //  If we're logged in, we're connecting a new local account.
                         if (req.user) {
-                            insertUser(req.user, email, password);
+                            insertUser(req.user, email, password, done);
                         }
                         //  We're not logged in, so we're creating a brand new user.
                         else {
                             // create the user
-                            insertUser(new User(), email, password);
+                            insertUser(new User(), email, password, done);
                         }
 
                     });
@@ -71,7 +71,7 @@ function initializeLocal(passport) {
         }));
 }
 
-function insertUser(user, email, password) {
+function insertUser(user, email, password, done) {
     user.local.email = email;
     user.local.password = user.generateHash(password);
     user.save(function (err) {

@@ -11,7 +11,7 @@ function initializeTwitter(passport) {
     passport.use(new TwitterStrategy(config.authentication.twitter, service.generateStrategyCallback('twitter.id', insertUser, 'twitter')));
 }
 
-function insertUser(user, token, profile, extractId) {
+function insertUser(user, token, profile, extractId, done) {
     if (extractId)
         user.twitter.id = profile.id;
     user.twitter.token = token;

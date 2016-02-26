@@ -1,5 +1,6 @@
 var controller = require('./facebook.controller');
 var authService = require('../auth.service');
+var passport = require('passport');
 var express = require('express');
 var router = express.Router();
 

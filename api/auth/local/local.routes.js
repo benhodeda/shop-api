@@ -1,5 +1,6 @@
-var authService = require('../auth.service');
 var controller = require('./local.controller');
+var authService = require('../auth.service');
+var passport = require('passport');
 var express = require('express');
 var router = express.Router();
 

@@ -8,7 +8,7 @@ function initializeGoogle(passport) {
     passport.use(new GoogleStrategy(config.authentication.google, service.generateStrategyCallback('google.id', insertUser, 'google')));
 }
 
-function insertUser(user, token, profile, extractId) {
+function insertUser(user, token, profile, extractId, done) {
     if (extractId)
         user.google.id = profile.id;
     user.google.token = token;
