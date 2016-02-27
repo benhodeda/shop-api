@@ -5,9 +5,9 @@ var config = {
             sessionSecret: 'ilovescotchscotchyscotchscotch'
         },
         facebook: {
-            clientID: '924847737628667', // your App ID
-            clientSecret: '56bbb2a6463f3f81b51cf87c507818b2', // your App Secret
-            callbackURL: '/auth/facebook/callback',
+            clientID: '924847737628667',
+            clientSecret: '56bbb2a6463f3f81b51cf87c507818b2',
+            callbackURL: 'http://https://mta-shopapi.herokuapp.com/auth/facebook/callback',
             profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'timezone', 'updated_time', 'verified'],
             passReqToCallback: true
         },

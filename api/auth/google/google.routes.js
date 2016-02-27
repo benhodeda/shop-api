@@ -13,15 +13,16 @@ var saveSession = {
 router.get('/', passport.authenticate('google', saveSession));
 
 // the callback after google has authenticated the user
-router.get('/callback',
-    passport.authenticate('google', saveSession), authService.responseUser);
+router.get('/callback', passport.authenticate('google', saveSession), authService.responseUser);
 
 router.get('/connect', passport.authorize('google', saveSession));
 
 // the callback after google has authorized the user
 router.get('/connect/callback', passport.authorize('google', saveSession), authService.responseUser);
 
-router.get('/unlink', function (req, res) {
+router.get('/unlink', unlink);
+
+function unlink(req, res) {
     var user = req.user;
     controller.unlink(user).then(function (err) {
         if (err) {
@@ -30,6 +31,6 @@ router.get('/unlink', function (req, res) {
             res.json({ok: 200});
         }
     });
-});
+}
 
 module.exports = router;

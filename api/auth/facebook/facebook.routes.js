@@ -13,16 +13,16 @@ var saveSession = {
 router.get('/', passport.authenticate('facebook', saveSession));
 
 // handle the callback after facebook has authenticated the user
-router.get('/callback',
-    passport.authenticate('facebook', saveSession), authService.responseUser);
+router.get('/callback', passport.authenticate('facebook', saveSession), authService.responseUser);
 
 router.get('/connect', passport.authorize('facebook', saveSession));
 
 // handle the callback after facebook has authorized the user
-router.get('/connect/callback',
-    passport.authorize('facebook', saveSession), authService.responseUser);
+router.get('/connect/callback', passport.authorize('facebook', saveSession), authService.responseUser);
 
-router.get('/unlink', function (req, res) {
+router.get('/unlink', unlink);
+
+function unlink(req, res) {
     var user = req.user;
     controller.unlink(user).then(function (err) {
         if (err) {
@@ -31,6 +31,6 @@ router.get('/unlink', function (req, res) {
             res.json({ok: 200});
         }
     });
-});
+}
 
 module.exports = router;

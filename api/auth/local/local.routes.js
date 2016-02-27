@@ -14,7 +14,9 @@ router.post('/signup', passport.authenticate('local-signup', saveSession), authS
 
 router.post('/connect', passport.authenticate('local-signup', saveSession), authService.responseUser);
 
-router.get('/unlink', function (req, res, next) {
+router.get('/unlink', unlink);
+
+function unlink(req, res, next) {
     var user = req.user;
     controller.unlink(user).then(function (err) {
         if (err) {
@@ -23,6 +25,6 @@ router.get('/unlink', function (req, res, next) {
             res.json({ok: 200});
         }
     });
-});
+}
 
 module.exports = router;
