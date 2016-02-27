@@ -6,6 +6,7 @@ var router = express.Router();
 
 var saveSession = {
     session: true,
+    passReqToCallback: true,
     scope: ['email']
 };
 

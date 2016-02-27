@@ -4,7 +4,10 @@ var passport = require('passport');
 var express = require('express');
 var router = express.Router();
 
-var saveSession = {session: true};
+var saveSession = {
+    session: true,
+    passReqToCallback: true
+};
 
 //local login
 router.post('/login', passport.authenticate('local-login', saveSession), authService.responseUser);

@@ -3,8 +3,5 @@ module.exports = {
 };
 
 function responseUser(req, res, next) {
-    res.json({
-        ok: 200,
-        user: req.user
-    });
+    res.json(req.user);
 }
