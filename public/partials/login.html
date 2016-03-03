@@ -1,0 +1,42 @@
+<md-content md-scroll-y flex layout-padding class="login-section">
+    <div class="login-wrapper">
+
+        <div class="white-transparent spacious top">
+            <h2 class="logo-font">
+                Shop
+            </h2>
+        </div>
+        <div class="transparent-divider"></div>
+        <div class="white-transparent spacious bottom">
+            <form name="loginForm" >
+
+                <md-input-container class="md-block">
+                    <label>Email</label>
+                    <input required type="email" name="clientEmail" ng-model="clientEmail"
+                           minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/" />
+                    <!--<div ng-messages="loginForm.clientEmail.$error" role="alert">-->
+                        <!--<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">-->
+                            <!--Your email must be between 10 and 100 characters long and look like an e-mail address.-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <label>סיסמא</label>
+                    <input type="password" required name="password" ng-model="password">
+                    <!--<div ng-messages="loginForm.password.$error">-->
+                        <!--<div ng-message="required">This is required.</div>-->
+                    <!--</div>-->
+                </md-input-container>
+
+                <md-button class="md-raised md-primary login-btn">התחברות</md-button>
+
+            </form>
+
+            <h5>
+                אין לך חשבון?
+                <a href="">הירשמ/י</a>!
+            </h5>
+        </div>
+    </div>
+</md-content>
