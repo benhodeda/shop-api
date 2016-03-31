@@ -9,6 +9,7 @@ var express = require('express');
 var logger = require('morgan');
 var cors = require('cors');
 
+
 // connect to our database
 mongoose.connect(config.mongoConnection);
 passportInit(passport);
@@ -16,7 +17,7 @@ passportInit(passport);
 var api = require('./api/api.routes');
 
 var app = express();
-
+app.use(express.static('public'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
