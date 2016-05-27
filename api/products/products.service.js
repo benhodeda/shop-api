@@ -58,14 +58,22 @@ function ProductsService() {
         }
 
         for (var filter in filters) {
-            var match = {};
-            match[filter] = filters;
-            body["bool"]["must"].push({match: match});
+            var should = [];
+            filters[filter].forEach(function(value){
+                var match = {};
+                match[filter] = value;
+                should.push({query: {match: match}});
+            });
+            body["bool"]["must"].push({query:{bool: {should: should}}});
         }
 
         if (body["bool"]["must"].length === 0) {
             body = {};
+        } else {
+            body = {query:body};
         }
+
+
 
         return client.search({
             index: 'products',
