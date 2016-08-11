@@ -11,7 +11,7 @@ var saveSession = {
 };
 
 // route for facebook authentication and login
-router.get('/', passport.authenticate('facebook', saveSession));
+router.get('/login', passport.authenticate('facebook', saveSession), authService.responseUser);
 
 // handle the callback after facebook has authenticated the user
 router.get('/callback', passport.authenticate('facebook', saveSession), authService.responseUser);
