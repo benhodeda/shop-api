@@ -9,6 +9,7 @@ function ProductsController() {
     self.getProducts = getProducts;
     self.getCategories = getCategories;
     self.createProduct = createProduct;
+    self.updateProduct = updateProduct;
     self.deleteProduct = deleteProduct;
 
     function getProducts(query, filters) {
@@ -29,5 +30,9 @@ function ProductsController() {
 
     function getProduct(id){
         return service.getProduct(id);
+    }
+
+    function updateProduct(id, partial) {
+        return service.updateProduct(id, partial);
     }
 }

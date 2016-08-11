@@ -8,16 +8,20 @@ function ProductsService() {
     self.index = index;
     self.getProduct = getProduct;
     self.getProducts = getProducts;
+    self.updateProduct = updateProduct;
     self.getCategories = getCategories;
     self.deleteProduct = deleteProduct;
 
     var client = new elasticsearch.Client({
         host: connectionString
     });
+    
+    var productsIndex = "products";
+    var type = "ds011248_mongolab_com_f2a7";
 
     function getCategories() {
         return client.search({
-            index: 'products',
+            index: productsIndex,
             body: {
                 aggs: {
                     categories: {
@@ -76,7 +80,7 @@ function ProductsService() {
 
 
         return client.search({
-            index: 'products',
+            index: productsIndex,
             body: body
         }).then(function (results) {
             var hits = {};
@@ -92,8 +96,8 @@ function ProductsService() {
 
     function index(product) {
         return client.index({
-            index: 'products',
-            type: 'ds011248_mongolab_com_f2a7',
+            index: productsIndex,
+            type: type,
             body: product
         }).then(function (response) {
             response.item = product;
@@ -103,8 +107,8 @@ function ProductsService() {
 
     function deleteProduct(id) {
         return client.delete({
-            index: "products",
-            type: 'ds011248_mongolab_com_f2a7',
+            index: productsIndex,
+            type: type,
             id: id
         }).then(function (response) {
             return response;
@@ -113,12 +117,26 @@ function ProductsService() {
 
     function getProduct(id) {
         return client.get({
-            index: "products",
-            type: 'ds011248_mongolab_com_f2a7',
+            index: productsIndex,
+            type: type,
             id: id
         }).then(function (response) {
             response._source._id = response._id;
             return response._source;
+        });
+    }
+
+    function updateProduct(id, partial) {
+        return client.update({
+            index: productsIndex,
+            type: type,
+            id: id,
+            body: {
+                doc: partial
+            }
+        }).then(function (error, response){
+            if(error) return error;
+            return response;
         });
     }
 }

@@ -48,4 +48,12 @@ router.get('/:id', function(req, res, next){
     });
 });
 
+router.put('/:id', function(req, res, next){
+    var id = req.params.id;
+    var partial = req.body;
+    controller.updateProduct(id, partial).then(function(result){
+        res.json(result);
+    });
+});
+
 module.exports = router;
