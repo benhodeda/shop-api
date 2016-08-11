@@ -54,8 +54,8 @@ function ProductsService() {
         if (query) {
             body["bool"]["must"].push({
                 query: {
-                    query_string: {
-                        query: query
+                    wildcard: {
+                        query: "*" + query + "*"
                     }
                 }
             });
