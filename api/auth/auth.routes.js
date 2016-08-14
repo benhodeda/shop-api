@@ -9,6 +9,8 @@ var router = express.Router();
 
 var saveSession = {
     session: true,
+    usernameField: 'email',
+    passwordField: 'id',
     passReqToCallback: true
 };
 
