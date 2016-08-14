@@ -2,8 +2,6 @@ module.exports = PayPalController;
 
 var paypal = require('paypal-rest-sdk');
 var config = require('./config.json');
-var ProductsService = require('./products.service');
-var service = new ProductsService();
 
 function PayPalController() {
     var self = this;
