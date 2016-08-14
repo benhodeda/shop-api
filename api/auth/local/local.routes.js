@@ -9,6 +9,8 @@ var saveSession = {
     passReqToCallback: true
 };
 
+
+
 //local login
 router.post('/login', passport.authenticate('local-login', saveSession), authService.responseUser);
 
