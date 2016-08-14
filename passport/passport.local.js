@@ -7,7 +7,7 @@ var emailStrategy = {
     // by default, local strategy uses username and password, we will override with email
     usernameField: 'email',
     passwordField: 'id',
-    passReqToCallback: false // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+    passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 };
 
 function initializeLocal(passport) {

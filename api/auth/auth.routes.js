@@ -9,10 +9,7 @@ var router = express.Router();
 
 var saveSession = {
     session: true,
-    // by default, local strategy uses username and password, we will override with email
-    usernameField: 'email',
-    passwordField: 'id',
-    passReqToCallback: false
+    passReqToCallback: true
 };
 
 router.get('/logout', function (req, res) {
