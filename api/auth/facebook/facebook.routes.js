@@ -7,7 +7,7 @@ var router = express.Router();
 var saveSession = {
     session: true,
     passReqToCallback: true,
-    scope: ['email']
+    scope: ['public_profile', 'email', 'user_about_me', 'user_birthday']
 };
 
 // route for facebook authentication and login
