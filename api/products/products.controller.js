@@ -7,6 +7,7 @@ function ProductsController() {
 
     self.getProduct = getProduct;
     self.getProducts = getProducts;
+    self.getSoldProducts = getSoldProducts;
     self.getCategories = getCategories;
     self.createProduct = createProduct;
     self.updateProduct = updateProduct;
@@ -14,6 +15,10 @@ function ProductsController() {
 
     function getProducts(query, filters) {
         return service.getProducts(query, filters);
+    }
+
+    function getSoldProducts(query, filters) {
+        return service.getSoldProducts(query, filters);
     }
 
     function getCategories() {

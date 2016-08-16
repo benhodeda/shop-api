@@ -8,6 +8,7 @@ function ProductsService() {
     self.index = index;
     self.getProduct = getProduct;
     self.getProducts = getProducts;
+    self.getSoldProducts = getSoldProducts;
     self.updateProduct = updateProduct;
     self.getCategories = getCategories;
     self.deleteProduct = deleteProduct;
@@ -50,7 +51,61 @@ function ProductsService() {
 
     function getProducts(query, filters) {
         var body = {};
-        body["bool"] = {must: []};
+        body["bool"] = {must: [{
+            match: {
+                sold: false
+            }
+        }]};
+        if (query) {
+            body["bool"]["must"].push({
+                query: {
+                    query_string: {
+                        query: query
+                    }
+                }
+            });
+        }
+
+        for (var filter in filters) {
+            var should = [];
+            filters[filter].forEach(function(value){
+                var match = {};
+                match[filter] = value;
+                should.push({query: {match: match}});
+            });
+            body["bool"]["must"].push({query:{bool: {should: should}}});
+        }
+
+        if (body["bool"]["must"].length === 0) {
+            body = {};
+        } else {
+            body = {query:body};
+        }
+
+
+
+        return client.search({
+            index: productsIndex,
+            body: body
+        }).then(function (results) {
+            var hits = {};
+            hits.count = results.hits.total;
+            hits.products = results.hits.hits.map(function (result) {
+                result._source._id = result._id;
+                result._source._score = result._score;
+                return result._source;
+            });
+            return hits;
+        });
+    }
+
+    function getSoldProducts(query, filters) {
+        var body = {};
+        body["bool"] = {must: [{
+            match: {
+                sold: true
+            }
+        }]};
         if (query) {
             body["bool"]["must"].push({
                 query: {
@@ -95,6 +150,7 @@ function ProductsService() {
     }
 
     function index(product) {
+        product.sold = false;
         return client.index({
             index: productsIndex,
             type: type,
