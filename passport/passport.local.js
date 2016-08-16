@@ -6,7 +6,7 @@ var User = require('../models/user');
 var emailStrategy = {
     // by default, local strategy uses username and password, we will override with email
     usernameField: 'email',
-    passwordField: 'password',
+    passwordField: 'id',
     passReqToCallback: true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
 };
 
