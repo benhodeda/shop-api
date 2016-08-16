@@ -9,7 +9,9 @@ var router = express.Router();
 
 var saveSession = {
     session: true,
-    passReqToCallback: true
+    usernameField: 'email',
+    passwordField: 'id',
+    passReqToCallback: false
 };
 
 router.get('/logout', function (req, res) {
