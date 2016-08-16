@@ -22,7 +22,7 @@ router.get('/search', function(req, res, next){
     for(var filter in filters){
         filters[filter] = filters[filter].split(",");
     }
-    controller.getProducts(q, filters).then(function(results){
+    controller.search(q, filters).then(function(results){
         res.json(results);
     });
 });
