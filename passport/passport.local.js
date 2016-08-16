@@ -12,7 +12,7 @@ var emailStrategy = {
 
 function initializeLocal(passport) {
 
-    passport.use('auth', new LocalStrategy(emailStrategy,
+    passport.use('local-login', new LocalStrategy(emailStrategy,
         function (req, email, password, done) {
             // asynchronous
             process.nextTick(function () {
@@ -31,37 +31,6 @@ function initializeLocal(passport) {
                         else {
                             // create the user
                             insertUser(req.body, done);
-                        }
-                    }
-                    if (!user.validPassword(password))
-                        return done(null, false, {message: 'Oops! Wrong password.'});
-
-                    // all is well, return user
-                    else
-                        return done(null, user);
-                });
-            });
-        }));
-
-    passport.use('local-login', new LocalStrategy(emailStrategy,
-        function (req, email, password, done) {
-            // asynchronous
-            process.nextTick(function () {
-                User.findOne({'local.email': email}, function (err, user) {
-                    // if there are any errors, return the error
-                    if (err)
-                        return done(err);
-
-                    // if no user is found, return the message
-                    if (!user) {
-                        //  If we're logged in, we're connecting a new local account.
-                        if (req.user) {
-                            insertUser(req.user, email, password, done);
-                        }
-                        //  We're not logged in, so we're creating a brand new user.
-                        else {
-                            // create the user
-                            insertUser(new User(), email, password, done);
                         }
                     }
                     // all is well, return user
@@ -94,12 +63,12 @@ function initializeLocal(passport) {
 
                         //  If we're logged in, we're connecting a new local account.
                         if (req.user) {
-                            insertUser(req.user, email, password, done);
+                            return done(null, req.user);
                         }
                         //  We're not logged in, so we're creating a brand new user.
                         else {
                             // create the user
-                            insertUser(new User(), email, password, done);
+                            insertUser(req.body, done);
                         }
 
                     });
