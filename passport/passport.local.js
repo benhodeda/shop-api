@@ -25,12 +25,12 @@ function initializeLocal(passport) {
                     if (!user) {
                         //  If we're logged in, we're connecting a new local account.
                         if (req.user) {
-                            insertUser(req.user, email, password, done);
+                            return done(null, req.user);
                         }
                         //  We're not logged in, so we're creating a brand new user.
                         else {
                             // create the user
-                            insertUser(new User(), email, password, done);
+                            insertUser(req.body, done);
                         }
                     }
                     if (!user.validPassword(password))
@@ -107,12 +107,12 @@ function initializeLocal(passport) {
         }));
 }
 
-function insertUser(user, email, password, done) {
-    user.local.email = email;
-    user.local.password = user.generateHash(password);
-    user.save(function (err) {
+function insertUser(user, done) {
+    var newUser = new User();
+    newUser.local = user;
+    newUser.save(function (err) {
         if (err)
             throw err;
-        return done(null, user);
+        return done(null, newUser);
     });
 }
