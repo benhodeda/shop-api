@@ -18,17 +18,21 @@ function initializeLocal(passport) {
             process.nextTick(function () {
                 User.findOne({'local.email': email}, function (err, user) {
                     // if there are any errors, return the error
-                    if (err)
-                        return done(err);
-
+                    if (err) {
+                        res.json({msg: "err"});
+                        //return done(err);
+                    }
                     // if no user is found, return the message
                     if (!user) {
+                        res.json({msg: "!user"});
                         // create the user
-                        insertUser(new User(), req.body, done);
+                        //insertUser(new User(), req.body, done);
                     }
                     // all is well, return user
-                    else
-                        return done(null, user);
+                    else {
+                        res.json({msg: "user"});
+                        //return done(null, user);
+                    }
                 });
             });
         }));
