@@ -9,7 +9,6 @@ function ProductsService() {
     self.getProduct = getProduct;
     self.getProducts = getProducts;
     self.getSoldProducts = getSoldProducts;
-    self.getAllProducts = getAllProducts;
     self.updateProduct = updateProduct;
     self.getCategories = getCategories;
     self.deleteProduct = deleteProduct;
@@ -47,52 +46,6 @@ function ProductsService() {
                 category.subcategories = category.subcategories.buckets;
                 return category;
             })
-        });
-    }
-
-    function getAllProducts(query, filters) {
-        var body = {};
-        body["bool"] = {must: []};
-        if (query) {
-            body["bool"]["must"].push({
-                query: {
-                    query_string: {
-                        query: query
-                    }
-                }
-            });
-        }
-
-        for (var filter in filters) {
-            var should = [];
-            filters[filter].forEach(function(value){
-                var match = {};
-                match[filter] = value;
-                should.push({query: {match: match}});
-            });
-            body["bool"]["must"].push({query:{bool: {should: should}}});
-        }
-
-        if (body["bool"]["must"].length === 0) {
-            body = {};
-        } else {
-            body = {query:body};
-        }
-
-
-
-        return client.search({
-            index: productsIndex,
-            body: body
-        }).then(function (results) {
-            var hits = {};
-            hits.count = results.hits.total;
-            hits.products = results.hits.hits.map(function (result) {
-                result._source._id = result._id;
-                result._source._score = result._score;
-                return result._source;
-            });
-            return hits;
         });
     }
 

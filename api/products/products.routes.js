@@ -3,12 +3,6 @@ var controller = new ProductsController();
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function(req, res, next) {
-    controller.getProducts().then(function(results){
-        res.json(results);
-    });
-});
-
 router.get('/categories', function(req, res, next){
    controller.getCategories().then(function(results){
        res.json(results);
@@ -22,7 +16,7 @@ router.get('/search', function(req, res, next){
     for(var filter in filters){
         filters[filter] = filters[filter].split(",");
     }
-    controller.search(q, filters).then(function(results){
+    controller.getProducts(q, filters).then(function(results){
         res.json(results);
     });
 });
