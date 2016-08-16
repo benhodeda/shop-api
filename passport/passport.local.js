@@ -54,11 +54,16 @@ function initializeLocal(passport) {
 
                     // if no user is found, return the message
                     if (!user) {
-                        return done(null, false, {message: 'No user found.'});
+                        //  If we're logged in, we're connecting a new local account.
+                        if (req.user) {
+                            insertUser(req.user, email, password, done);
+                        }
+                        //  We're not logged in, so we're creating a brand new user.
+                        else {
+                            // create the user
+                            insertUser(new User(), email, password, done);
+                        }
                     }
-                    if (!user.validPassword(password))
-                        return done(null, false, {message: 'Oops! Wrong password.'});
-
                     // all is well, return user
                     else
                         return done(null, user);
