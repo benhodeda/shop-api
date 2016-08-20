@@ -40,9 +40,8 @@ router.post('/', function(req, res, next){
     });
 });
 
-router.post('/upload/:id', function(req, res, next){
-    var id = req.params.id;
-    controller.upload(id, req, res).then(function(result){
+router.post('/upload', function(req, res, next){
+    controller.upload(req, res).then(function(result){
         res.json(result);
     });
 });

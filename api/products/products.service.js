@@ -79,7 +79,7 @@ function ProductsService() {
         if (body["bool"]["must"].length === 0) {
             body = {};
         } else {
-            body = {query:body};
+            body = {query:body, size:150};
         }
 
 
@@ -129,7 +129,7 @@ function ProductsService() {
         if (body["bool"]["must"].length === 0) {
             body = {};
         } else {
-            body = {query:body};
+            body = {query:body, size:150};
         }
 
 
