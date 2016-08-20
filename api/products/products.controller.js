@@ -21,12 +21,10 @@ function ProductsController() {
     function upload(request, response) {
         var deffer = Q.defer();
         request.file.fieldname = uuid.v1();
-        deffer.resolve({test: "hello"});
-
-        // uploadService(request, response, function(err){
-        //     // if(err) deffer.reject(err);
-        //     // else createProduct({ image: request.file.fieldname }).then(deffer.resolve);
-        // });
+        uploadService(request, response, function(err){
+            if(err) deffer.reject(err);
+            else createProduct({ image: request.file.fieldname }).then(deffer.resolve);
+        });
 
         return deffer.promise;
     }
