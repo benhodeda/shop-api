@@ -24,6 +24,7 @@
     "passport-google-oauth": "~0.1.5",
     "passport-local": "~0.1.6",
     "passport-twitter": "~1.0.2",
+    "paypal-adaptive": "^0.4.2",
     "paypal-rest-sdk": "^1.6.9",
     "q": "^1.4.1",
     "serve-favicon": "~2.3.0",
