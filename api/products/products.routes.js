@@ -41,9 +41,10 @@ router.post('/', function(req, res, next){
 });
 
 router.post('/upload', function(req, res, next){
-    controller.upload(req, res).then(function(result){
-        res.json(result);
-    });
+    res.json({what: "the fuck"});
+    // controller.upload(req, res).then(function(result){
+    //     res.json(result);
+    // });
 });
 
 router.delete('/:id', function(req, res, next){
