@@ -40,6 +40,13 @@ router.post('/', function(req, res, next){
     });
 });
 
+router.post('/upload/:id', function(req, res, next){
+    var id = req.params.id;
+    controller.upload(id, req, res).then(function(result){
+        res.json(result);
+    });
+});
+
 router.delete('/:id', function(req, res, next){
     var id = req.params.id;
     controller.deleteProduct(id).then(function(result){
