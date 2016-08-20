@@ -23,7 +23,7 @@ function ProductsController() {
         request.file.fieldname = uuid.v1();
         uploadService(request, response, function(err){
             if(err) deffer.reject(err);
-            else return createProduct({ image: request.file.fieldname });
+            else createProduct({ image: request.file.fieldname }).then(deffer.resolve);
         });
 
         return deffer.promise;
