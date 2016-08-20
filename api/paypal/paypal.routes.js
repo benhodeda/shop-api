@@ -4,10 +4,12 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', function (req, res, next) {
-    var productId = req.param('product');
-    var cancelUrl = req.param('cancelUrl');
-    var returnUrl = req.param('returnUrl');
-    return controller.pay(productId, cancelUrl, returnUrl);
+    var productId = req.body.product;
+    var cancelUrl = req.body.cancelUrl;
+    var returnUrl = req.body.returnUrl;
+    controller.pay(productId, cancelUrl, returnUrl).then(function (result) {
+        res.json(result);
+    });
 });
 
 
