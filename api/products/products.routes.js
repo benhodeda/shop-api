@@ -2,6 +2,7 @@ var ProductsController = require('./products.controller');
 var controller = new ProductsController();
 var express = require('express');
 var router = express.Router();
+var upload = require('./upload.service');
 
 router.get('/categories', function(req, res, next){
    controller.getCategories().then(function(results){
@@ -40,8 +41,8 @@ router.post('/', function(req, res, next){
     });
 });
 
-router.post('/upload', function(req, res, next){
-    controller.upload(req, res).then(function(result){
+router.post('/upload', upload, function(req, res, next){
+    controller.createProduct({ image: req.file.fieldname}).then(function(result){
         res.json(result);
     });
 });

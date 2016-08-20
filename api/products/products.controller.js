@@ -9,7 +9,6 @@ var service = new ProductsService();
 function ProductsController() {
     var self = this;
 
-    self.upload = upload;
     self.getProduct = getProduct;
     self.getProducts = getProducts;
     self.getSoldProducts = getSoldProducts;
@@ -18,16 +17,6 @@ function ProductsController() {
     self.updateProduct = updateProduct;
     self.deleteProduct = deleteProduct;
 
-    function upload(request, response) {
-        var deffer = Q.defer();
-        request.file.fieldname = uuid.v1();
-        uploadService(request, response, function(err){
-            if(err) deffer.reject(err);
-            else createProduct({ image: request.file.fieldname }).then(deffer.resolve);
-        });
-
-        return deffer.promise;
-    }
 
     function getProducts(query, filters) {
         return service.getProducts(query, filters);
