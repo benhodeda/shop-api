@@ -4,7 +4,10 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/', function (req, res, next) {
-    return controller.preapproval();
+    var productId = req.param('product');
+    var cancelUrl = req.param('cancelUrl');
+    var returnUrl = req.param('returnUrl');
+    return controller.pay(productId, cancelUrl, returnUrl);
 });
 
 

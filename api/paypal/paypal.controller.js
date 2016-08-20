@@ -3,11 +3,14 @@ module.exports = PayPalController;
 // var paypal = require('paypal-rest-sdk');
 // var config = require('./config.json');
 var Paypal = require('paypal-adaptive');
-var Logs = require('../products/products.service');
-var logs = new Logs();
+var ProductsService = require('../products/products.service');
+var products = new ProductsService();
+
+
+var Q = require('q');
 
 var paypalSdk = new Paypal({
-    userId:    '489766946',
+    userId:    'benhodeda-facilitator_api1.gmail.com',
     password:  'KTQNRF6DZNUZN7DR',
     signature: 'AFcWxV21C7fd0v3bYYYRCpSSRl31AgmkuMGQzQRxJ1-F.aPTMkW7rTnk',
     sandbox:   true //defaults to false
@@ -16,42 +19,47 @@ var paypalSdk = new Paypal({
 function PayPalController() {
     var self = this;
 
-    self.preapproval = preapproval;
+    self.pay = pay;
 
-    function preapproval(){
+    function pay(productId, cancelUrl, returnUrl){
+        var product = products.getProduct(productId);
+        var percent = product.organization.percent / 100;
+        var organizationAmount = product.price * percent;
+        var sellerAmount = product.price - organizationAmount;
         var payload = {
             requestEnvelope: {
                 errorLanguage:  'en_US'
             },
             actionType:     'PAY',
-            currencyCode:   'USD',
+            currencyCode:   'ILS',
             feesPayer:      'EACHRECEIVER',
-            memo:           'Chained payment example',
-            cancelUrl:      'http://localhost:3000/?x=cancel',
-            returnUrl:      'http://localhost:3000/?x=success',
+            cancelUrl:      cancelUrl,
+            returnUrl:      returnUrl,
             receiverList: {
                 receiver: [
                     {
-                        email:  'eladdo@gmail.com',
-                        amount: '100.00',
-                        primary:'true'
+                        email:  product.seller,
+                        amount: sellerAmount
                     },
                     {
-                        email:  'benhodeda@gmail.com',
-                        amount: '10.00',
-                        primary:'false'
+                        email:  product.organization.email,
+                        amount: organizationAmount
                     }
                 ]
             }
         };
+        
+        var deffer = Q.defer();
 
-        paypalSdk.preapproval(payload, function (err, response) {
+        paypalSdk.pay(payload, function (err, response) {
             if (err) {
-                logs.index(err);
+                deffer.reject(err);
             } else {
-                logs.index(response);
+                deffer.resolve(response);
             }
         });
+        
+        return deffer.promise;
     }
 
     // self.init = init;

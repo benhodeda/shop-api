@@ -18,12 +18,12 @@ function ProductsController() {
     self.updateProduct = updateProduct;
     self.deleteProduct = deleteProduct;
 
-    function upload(id, request, response) {
+    function upload(request, response) {
         var deffer = Q.defer();
         request.file.fieldname = uuid.v1();
         uploadService(request, response, function(err){
             if(err) deffer.reject(err);
-            else return updateProduct(id, { image: request.file.fieldname });
+            else return createProduct({ image: request.file.fieldname });
         });
 
         return deffer.promise;
