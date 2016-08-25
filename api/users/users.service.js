@@ -9,6 +9,7 @@ function UsersService() {
     self.getSingle = getSingle;
     self.deleteUser = deleteUser;
     self.update = update;
+    self.rate = rate;
 
     function get() {
         var defer = Q.defer();
@@ -46,4 +47,15 @@ function UsersService() {
         return defer.promise;
     }
 
+    function rate(id, rating) {
+        return getSingle(id).then(function(user){
+            var userRate = user._doc.local.rating;
+            userRate.total += rating;
+            userRate.count++;
+            userRate.rate = userRate.total / userRate.count;
+            return update(id, {
+                rating: userRate
+            });
+        });
+    }
 }

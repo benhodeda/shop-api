@@ -17,27 +17,13 @@ var userSchema = mongoose.Schema({
         settings: {
             defaultOrg: String,
             defaultPercents: Number
+        },
+        rating: {
+            total: Number,
+            count: Number,
+            rate: Number
         }
-    },
-    facebook: {
-        id: String,
-        token: String,
-        email: String,
-        name: String
-    },
-    twitter: {
-        id: String,
-        token: String,
-        displayName: String,
-        username: String
-    },
-    google: {
-        id: String,
-        token: String,
-        email: String,
-        name: String
     }
-
 });
 
 // methods ======================

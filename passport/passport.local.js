@@ -79,6 +79,11 @@ function initializeLocal(passport) {
 function insertUser(user, done) {
     var newUser = new User();
     newUser.local = user;
+    newUser.local.rating = {
+        total: 0,
+        count: 0,
+        rate: 0
+    };
     newUser.save(function (err) {
         if (err)
             throw err;

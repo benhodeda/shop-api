@@ -10,6 +10,7 @@ function UsersController() {
     self.getUser = getUser;
     self.deleteUser = deleteUser;
     self.updateUser = updateUser;
+    self.rate = rate;
 
 
     function getUsers() {
@@ -26,5 +27,9 @@ function UsersController() {
     
     function updateUser(id, partial) {
         return service.update(id, partial);
+    }
+    
+    function rate(id, rating) {
+        return service.rate(id, rating);
     }
 }
