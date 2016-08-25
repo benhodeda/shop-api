@@ -49,13 +49,11 @@ function UsersService() {
 
     function rate(id, rating) {
         return getSingle(id).then(function(user){
-            var userRate = user._doc.local.rating;
-            userRate.total += rating;
-            userRate.count++;
-            userRate.rate = userRate.total / userRate.count;
-            return update(id, {
-                rating: userRate
-            });
+            var user = user._doc.local;
+            user.rating.total += rating;
+            user.rating.count++;
+            user.rating.rate = user.rating.total / user.rating.count;
+            return update(id, user);
         });
     }
 }

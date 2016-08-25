@@ -36,7 +36,7 @@ router.delete('/:id', function(req, res, next){
 
 router.post('/:id/rate', function (req, res, next) {
     var id = req.params.id;
-    var rate = req.query.rate;
+    var rate = Number(req.query.rate);
     controller.rate(id, rate).then(function (result) {
         res.json(result);
     });
