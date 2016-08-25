@@ -69,4 +69,12 @@ router.put('/:id', function(req, res, next){
     });
 });
 
+router.post('/sold/:id', function (req, res, next) {
+    var productId = req.params.id;
+    var user = req.body;
+    controller.confirmPurchase(productId, user).then(function(result){
+        res.json(result);
+    });
+});
+
 module.exports = router;
