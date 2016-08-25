@@ -15,8 +15,8 @@ router.get('/search', function(req, res, next){
     var filters = req.query;
     delete filters.q;
     for(var filter in filters){
-        if(filter.toLowerCase() == 'ignore') continue;
-        filters[filter] = filters[filter].split(",");
+        if(filter.toLowerCase() == 'ignore') delete filters[filter];
+        else filters[filter] = filters[filter].split(",");
     }
     controller.getProducts(q, filters).then(function(results){
         res.json(results);
@@ -28,8 +28,8 @@ router.get('/sold', function(req, res, next){
     var filters = req.query;
     delete filters.q;
     for(var filter in filters){
-        if(filter.toLowerCase() == 'ignore') continue;
-        filters[filter] = filters[filter].split(",");
+        if(filter.toLowerCase() == 'ignore') delete filters[filter];
+        else filters[filter] = filters[filter].split(",");
     }
     controller.getSoldProducts(q, filters).then(function(results){
         res.json(results);
