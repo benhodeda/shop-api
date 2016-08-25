@@ -31,6 +31,32 @@ app.use(session({secret: config.authentication.local.sessionSecret})); // sessio
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
+var conn = mongoose.connection;
+var Grid = require ('gridfs-stream');
+Grid.mongo = mongoose.mongo;
+var gfs = Grid (conn.db);
+
+app.get('/:filename', function(req, res) {
+    gfs.findOne({ filename: req.params.filename }, function (err, file) {
+        if (err) return res.status(400).send(err);
+        if (!file) return res.status(404).send('');
+
+        res.set('Content-Type', file.contentType);
+        res.set('Content-Disposition', 'attachment; filename="' + file.filename + '"');
+
+        var readstream = gfs.createReadStream({
+            _id: file._id
+        });
+
+        readstream.on("error", function(err) {
+            console.log("Got error while processing stream " + err.message);
+            res.end();
+        });
+
+        readstream.pipe(res);
+    });
+});
+
 app.use('/api', api);
 
 // catch 404 and forward to error handler
