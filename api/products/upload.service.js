@@ -1,7 +1,7 @@
 var multer  =   require('multer');
 var uuid = require('uuid');
 
-var storage = require('gridfs-storage-engine')({
+var storage = require('multer-gridfs-storage')({
     url: 'mongodb://heroku_t2515wmc:nn2b48909ctombbf7ubp279v4k@ds011248.mongolab.com:11248/heroku_t2515wmc',
     filename: function (req, file, callback) {
         var ext = file.originalname.split('.');
