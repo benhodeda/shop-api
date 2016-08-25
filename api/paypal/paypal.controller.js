@@ -39,7 +39,7 @@ function PayPalController() {
                 receiverList: {
                     receiver: [
                         {
-                            email:  product.seller,
+                            email:  product.seller.email,
                             amount: sellerAmount
                         },
                         {
