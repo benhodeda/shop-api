@@ -2,7 +2,7 @@ var multer  =   require('multer');
 var uuid = require('uuid');
 var fs = require('fs');
 
-var dir = '../../uploads';
+var dir = '../uploads';
 
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
