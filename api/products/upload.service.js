@@ -8,10 +8,8 @@ if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
 }
 
-var storage =   multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, dir);
-    },
+var storage = require('multer-gridfs-storage')({
+    url: 'mongodb://heroku_t2515wmc:nn2b48909ctombbf7ubp279v4k@ds011248.mongolab.com:11248/heroku_t2515wmc',
     filename: function (req, file, callback) {
         var ext = file.originalname.split('.');
         ext = ext[ext.length - 1];

@@ -20,6 +20,7 @@
     "mongoose": "~3.8.1",
     "morgan": "~1.6.1",
     "multer": "1.1.0",
+    "multer-gridfs-storage": "^1.0.0",
     "nodemailer": "^2.5.0",
     "passport": "~0.1.17",
     "passport-facebook": "~1.0.2",
