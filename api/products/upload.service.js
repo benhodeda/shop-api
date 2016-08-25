@@ -1,9 +1,16 @@
 var multer  =   require('multer');
 var uuid = require('uuid');
+var fs = require('fs');
+
+var dir = './api/products/uploads';
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 var storage =   multer.diskStorage({
     destination: function (req, file, callback) {
-        callback(null, './api/products/uploads');
+        callback(null, dir);
     },
     filename: function (req, file, callback) {
         var ext = file.originalname.split('.');
