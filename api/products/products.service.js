@@ -215,7 +215,9 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
-            hits.facets = hits.aggregations;
+            for(var facet in results.aggregations) {
+                hits.facets[facet] = results.aggregations[facet].buckets;
+            }
             return hits;
         });
     }
@@ -268,7 +270,9 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
-            hits.facets = hits.aggregations;
+            for(var facet in results.aggregations) {
+                hits.facets[facet] = results.aggregations[facet].buckets;
+            }
             return hits;
         });
     }
