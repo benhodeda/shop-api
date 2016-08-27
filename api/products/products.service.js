@@ -49,6 +49,123 @@ function ProductsService() {
         });
     }
 
+    function getFacets() {
+        return {
+            aggs: {
+                sub_category : {
+                    terms: {
+                        field: "sub_category",
+                        order: {
+                            _count: "desc"
+                        },
+                        size: 100
+                    }
+                },
+                condition : {
+                    terms: {
+                        field: "condition",
+                        order: {
+                            _count: "desc"
+                        },
+                        size: 100
+                    }
+                },
+                "organization.name" : {
+                    terms: {
+                        field: "organization.name",
+                        order: {
+                            _count: "desc"
+                        },
+                        size: 100
+                    }
+                },
+                size : {
+                    terms: {
+                        field: "size",
+                        order: {
+                            _count: "desc"
+                        },
+                        size: 100
+                    }
+                },
+                location : {
+                    terms: {
+                        field: "location",
+                        order: {
+                            _count: "desc"
+                        },
+                        size: 100
+                    }
+                },
+                color : {
+                    terms: {
+                        field: "color",
+                        order: {
+                            _count: "desc"
+                        },
+                        size: 100
+                    }
+                },
+                price : {
+                    range : {
+                        field : "price",
+                        ranges : [
+                            { to : 25 },
+                            { from : 25, to : 50 },
+                            { from : 50, to : 75 },
+                            { from : 75, to : 100 },
+                            { from : 100, to : 125 },
+                            { from : 125, to : 150 },
+                            { from : 150, to : 175 },
+                            { from : 175, to : 200 },
+                            { from : 200, to : 225 },
+                            { from : 225, to : 250 },
+                            { from : 250 }
+                        ]
+                    }
+                },
+                percent : {
+                    range : {
+                        field : "percent",
+                        ranges : [
+                            { to : 10 },
+                            { from : 10, to : 20 },
+                            { from : 20, to : 30 },
+                            { from : 30, to : 40 },
+                            { from : 50, to : 60 },
+                            { from : 60, to : 70 },
+                            { from : 70, to : 80 },
+                            { from : 80, to : 90 },
+                            { from : 90 }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+
+    function getRangeQuery(field, value) {
+        var range = {};
+        var numRange = value.split('-');
+        range[field] = {
+            gte: numRange[0],
+            lte: numRange[1]
+        };
+        return {
+            range: range
+        };
+    }
+
+    function getMatchQuery(field, value) {
+        var match = {};
+        match[field] = value;
+        return {
+            query: {
+                match: match
+            }
+        };
+    }
+
     function getProducts(query, filters) {
         var body = {};
         body["bool"] = {must: [{
@@ -69,9 +186,12 @@ function ProductsService() {
         for (var filter in filters) {
             var should = [];
             filters[filter].forEach(function(value){
-                var match = {};
-                match[filter] = value;
-                should.push({query: {match: match}});
+                if(filter === "price" || filter === "percent") {
+                    should.push(getRangeQuery(filter, value));
+                } else {
+                    should.push(getMatchQuery(filter, value));
+                }
+
             });
             body["bool"]["must"].push({query:{bool: {should: should}}});
         }
@@ -82,7 +202,7 @@ function ProductsService() {
             body = {query:body, size:150};
         }
 
-
+        body.aggs = getFacets().aggs;
 
         return client.search({
             index: productsIndex,
@@ -119,9 +239,11 @@ function ProductsService() {
         for (var filter in filters) {
             var should = [];
             filters[filter].forEach(function(value){
-                var match = {};
-                match[filter] = value;
-                should.push({query: {match: match}});
+                if(filter === "price" || filter === "percent") {
+                    should.push(getRangeQuery(filter, value));
+                } else {
+                    should.push(getMatchQuery(filter, value));
+                }
             });
             body["bool"]["must"].push({query:{bool: {should: should}}});
         }
@@ -132,7 +254,7 @@ function ProductsService() {
             body = {query:body, size:150};
         }
 
-
+        body.aggs = getFacets().aggs;
 
         return client.search({
             index: productsIndex,
