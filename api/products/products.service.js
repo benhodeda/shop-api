@@ -167,14 +167,17 @@ function ProductsService() {
     }
 
     function getProducts(query, filters) {
-        var body = {};
-        body["bool"] = {must: [{
-            match: {
-                sold: false
+        var body = {
+            bool: {
+                must: [{
+                    match: {
+                        sold: false
+                    }
+                }]
             }
-        }]};
+        };
         if (query) {
-            body["bool"]["must"].push({
+            body.bool.must.push({
                 query: {
                     query_string: {
                         query: query
@@ -193,10 +196,10 @@ function ProductsService() {
                 }
 
             });
-            body["bool"]["must"].push({query:{bool: {should: should}}});
+            body.bool.must.push({query:{bool: {should: should}}});
         }
 
-        if (body["bool"]["must"].length === 0) {
+        if (body.bool.must.length === 0) {
             body = {};
         } else {
             body = {query:body, size:150};
@@ -215,22 +218,32 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
+            hits.facets = {};
             for(var facet in results.aggregations) {
                 hits.facets[facet] = results.aggregations[facet].buckets;
+                if(facet === 'price' || facet === 'percent') {
+                    hits.facets[facet].map(function(value){
+                        value.key = value.key.replace('.0', '').replace('.0', '').replace('*','0');
+                        return value;
+                    });
+                }
             }
             return hits;
         });
     }
 
     function getSoldProducts(query, filters) {
-        var body = {};
-        body["bool"] = {must: [{
-            match: {
-                sold: true
+        var body = {
+            bool: {
+                must: [{
+                    match: {
+                        sold: true
+                    }
+                }]
             }
-        }]};
+        };
         if (query) {
-            body["bool"]["must"].push({
+            body.bool.must.push({
                 query: {
                     query_string: {
                         query: query
@@ -248,10 +261,10 @@ function ProductsService() {
                     should.push(getMatchQuery(filter, value));
                 }
             });
-            body["bool"]["must"].push({query:{bool: {should: should}}});
+            body.bool.must.push({query:{bool: {should: should}}});
         }
 
-        if (body["bool"]["must"].length === 0) {
+        if (body.bool.must.length === 0) {
             body = {};
         } else {
             body = {query:body, size:150};
@@ -270,8 +283,15 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
+            hits.facets = {};
             for(var facet in results.aggregations) {
                 hits.facets[facet] = results.aggregations[facet].buckets;
+                if(facet === 'price' || facet === 'percent') {
+                    hits.facets[facet].map(function(value){
+                        value.key = value.key.replace('.0', '').replace('.0', '').replace('*','0');
+                        return value;
+                    });
+                }
             }
             return hits;
         });
