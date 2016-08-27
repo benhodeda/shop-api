@@ -2,9 +2,11 @@
 
 ## search for available products
 GET /api/products/search
+
 parameters (optionals):
 * q - query string
 * any field of product document - values to filter (iuse "," to split between different values)
+
 body: none
 
 example of the response:
@@ -482,9 +484,11 @@ example of the response:
 
 ## search for sold products
 GET /api/products/sold
+
 parameters (optionals):
 * q - query string
 * any field of product document - values to filter (iuse "," to split between different values)
+
 body: none
 
 example of the response:
@@ -931,8 +935,10 @@ example of the response:
 
 ## get single product
 GET /api/products/:id
+
 parameters (required) :
 * id - the id of the product
+
 body: none
 
 example of the response:
@@ -981,7 +987,9 @@ example of the response:
 
 ## create new product
 POST /api/products
+
 body: JSON of the new product to index
+
 for example:
 ```javascript
 {
@@ -1079,7 +1087,9 @@ the example's response:
 
 ## upload image as a new product
 POST /api/products/upload
+
 body: generate automatically using upload component in the client
+
 contentType: multipart/form-data
 
 the example's response:
@@ -1106,13 +1116,15 @@ the example's response:
 POST /api/products/sold/:id
 parameters (required) :
 * id - the id of the product
+
 body: JSON of the user who bought the product
+```javascript
 {
     "name": "Elad Douenias",
     "id": "10206489864621597",
     "email": "eladdo92@gmail.com"
 }
-
+```
 example of the response:
 ```javascript
 {
@@ -1170,9 +1182,10 @@ example of the response:
 DELETE /api/products/:id
 parameters (required) :
 * id - the id of the product
+
 body: none
 
-example of the response: (response format same as getting all products)
+example of the response:
 ```javascript
 {
     "found": true,
@@ -1190,14 +1203,17 @@ example of the response: (response format same as getting all products)
 
 ## update product
 PUT /api/products/:id
+
 parameters (required) :
 * id - the id of the product
+
 body: JSON of partial product to add new field or overwrite existing fields
+```javascript
 {
     "size": "L"
 }
-
-example of the response: (response format same as getting all products)
+```
+example of the response:
 ```javascript
 {
   "_index": "products",
