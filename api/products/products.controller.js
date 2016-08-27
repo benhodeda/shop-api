@@ -13,7 +13,6 @@ function ProductsController() {
     self.getProduct = getProduct;
     self.getProducts = getProducts;
     self.getSoldProducts = getSoldProducts;
-    self.getCategories = getCategories;
     self.createProduct = createProduct;
     self.updateProduct = updateProduct;
     self.deleteProduct = deleteProduct;
@@ -25,10 +24,6 @@ function ProductsController() {
     }
     function getSoldProducts(query, filters) {
         return service.getSoldProducts(query, filters);
-    }
-
-    function getCategories() {
-        return service.getCategories();
     }
 
     function createProduct(product) {

@@ -8,10 +8,9 @@ function ProductsService() {
     self.index = index;
     self.getProduct = getProduct;
     self.getProducts = getProducts;
-    self.getSoldProducts = getSoldProducts;
     self.updateProduct = updateProduct;
-    self.getCategories = getCategories;
     self.deleteProduct = deleteProduct;
+    self.getSoldProducts = getSoldProducts;
 
     var client = new elasticsearch.Client({
         host: connectionString
@@ -20,38 +19,25 @@ function ProductsService() {
     var productsIndex = "products";
     var type = "ds011248_mongolab_com_f2a7";
 
-    function getCategories() {
-        return client.search({
-            index: productsIndex,
-            body: {
-                aggs: {
-                    categories: {
-                        terms: {
-                            field: "category",
-                            order: {"_count": "desc"}
-                        },
-                        aggs: {
-                            subcategories: {
-                                terms: {
-                                    field: "sub_category",
-                                    order: {"_count": "desc"}
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }).then(function (results) {
-            return results.aggregations.categories.buckets.map(function (category) {
-                category.subcategories = category.subcategories.buckets;
-                return category;
-            })
-        });
-    }
-
     function getFacets() {
         return {
             aggs: {
+                category: {
+                    terms: {
+                        field: "category",
+                        order: {"_count": "desc"},
+                        size: 100
+                    },
+                    aggs: {
+                        sub_category: {
+                            terms: {
+                                field: "sub_category",
+                                order: {"_count": "desc"},
+                                size: 100
+                            }
+                        }
+                    }
+                },
                 sub_category : {
                     terms: {
                         field: "sub_category",
@@ -166,78 +152,39 @@ function ProductsService() {
         };
     }
 
+    function formatFacets(aggregations){
+        var facets = {};
+        for(var facet in aggregations) {
+            facets[facet] = aggregations[facet].buckets;
+            if(facet === 'price' || facet === 'percent') {
+                facets[facet].map(function(value){
+                    value.key = value.key.replace('.0', '').replace('.0', '').replace('*','0');
+                    return value;
+                });
+            } else if(facet === 'category') {
+                facets[facet].map(function(category){
+                    category.sub_category = category.sub_category.buckets;
+                    return category;
+                });
+            }
+        }
+        return facets;
+    }
+
     function getProducts(query, filters) {
-        var body = {
-            bool: {
-                must: [{
-                    match: {
-                        sold: false
-                    }
-                }]
-            }
-        };
-        if (query) {
-            body.bool.must.push({
-                query: {
-                    query_string: {
-                        query: query
-                    }
-                }
-            });
-        }
-
-        for (var filter in filters) {
-            var should = [];
-            filters[filter].forEach(function(value){
-                if(filter === "price" || filter === "percent") {
-                    should.push(getRangeQuery(filter, value));
-                } else {
-                    should.push(getMatchQuery(filter, value));
-                }
-
-            });
-            body.bool.must.push({query:{bool: {should: should}}});
-        }
-
-        if (body.bool.must.length === 0) {
-            body = {};
-        } else {
-            body = {query:body, size:150};
-        }
-
-        body.aggs = getFacets().aggs;
-
-        return client.search({
-            index: productsIndex,
-            body: body
-        }).then(function (results) {
-            var hits = {};
-            hits.count = results.hits.total;
-            hits.products = results.hits.hits.map(function (result) {
-                result._source._id = result._id;
-                result._source._score = result._score;
-                return result._source;
-            });
-            hits.facets = {};
-            for(var facet in results.aggregations) {
-                hits.facets[facet] = results.aggregations[facet].buckets;
-                if(facet === 'price' || facet === 'percent') {
-                    hits.facets[facet].map(function(value){
-                        value.key = value.key.replace('.0', '').replace('.0', '').replace('*','0');
-                        return value;
-                    });
-                }
-            }
-            return hits;
-        });
+        return getCustomProducts(false, query, filters);
     }
 
     function getSoldProducts(query, filters) {
+        return getCustomProducts(true, query, filters);
+    }
+    
+    function getCustomProducts(sold, query, filters) {
         var body = {
             bool: {
                 must: [{
                     match: {
-                        sold: true
+                        sold: sold
                     }
                 }]
             }
@@ -283,16 +230,7 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
-            hits.facets = {};
-            for(var facet in results.aggregations) {
-                hits.facets[facet] = results.aggregations[facet].buckets;
-                if(facet === 'price' || facet === 'percent') {
-                    hits.facets[facet].map(function(value){
-                        value.key = value.key.replace('.0', '').replace('.0', '').replace('*','0');
-                        return value;
-                    });
-                }
-            }
+            hits.facets = formatFacets(results.aggregations);
             return hits;
         });
     }

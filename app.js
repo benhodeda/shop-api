@@ -9,7 +9,9 @@ var express = require('express');
 var logger = require('morgan');
 var cors = require('cors');
 
-
+//index products
+var seeds = require('./seeds');
+seeds.index();
 
 // connect to our database
 mongoose.connect(config.mongoConnection);

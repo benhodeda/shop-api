@@ -4,12 +4,6 @@ var express = require('express');
 var router = express.Router();
 var upload = require('./upload.service');
 
-router.get('/categories', function(req, res, next){
-   controller.getCategories().then(function(results){
-       res.json(results);
-   });
-});
-
 router.get('/search', function(req, res, next){
     var q = req.query.q;
     var filters = req.query;
