@@ -215,6 +215,7 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
+            hits.facets = hits.aggregations;
             return hits;
         });
     }
@@ -267,6 +268,7 @@ function ProductsService() {
                 result._source._score = result._score;
                 return result._source;
             });
+            hits.facets = hits.aggregations;
             return hits;
         });
     }
