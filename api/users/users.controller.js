@@ -1,4 +1,5 @@
 module.exports = UsersController;
+
 var UsersService = require('./users.service');
 
 var service = new UsersService();
@@ -6,10 +7,10 @@ var service = new UsersService();
 function UsersController() {
     var self = this;
 
+    self.updateUser = updateUser;
+    self.deleteUser = deleteUser;
     self.getUsers = getUsers;
     self.getUser = getUser;
-    self.deleteUser = deleteUser;
-    self.updateUser = updateUser;
     self.rate = rate;
 
 

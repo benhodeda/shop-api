@@ -1,5 +1,37 @@
 # shop-api
 
+## search for available products
+GET /api/products/search
+parameters (optionals):
+* q - query string
+* any field of product document - values to filter (iuse "," to split between different values)
+body: none
+
+## search for sold products
+GET /api/products/sold
+parameters (optionals):
+* q - query string
+* any field of product document - values to filter (iuse "," to split between different values)
+body: none
+
+## get single product
+GET /api/products/:id
+parameters (required) :
+* id - the id of the product
+body: none
+
+example of the response: (response format same as getting all products)
+```javascript
+{
+    "category": "Women's Clothing",
+    "sub_category": "Dresses",
+    "price": 39.07,
+    "condition": "New",
+    "description": "Women's Sleeveless pink Lace Dress Sexy Coctail Party Classic Size - M",
+    "_id": "56c6fe3fe4b0396d8a4ddc41"
+}
+```
+
 ## create new product
 POST /api/products
 body: JSON of the new product to index
@@ -16,7 +48,7 @@ for example:
 the example's response:
 ```javascript
  {
-     "_index": "products",   
+     "_index": "products",
      "_type": "ds011248_mongolab_com_f2a7",
      "_id": "AVL6JITbN-RaXdjIOsOJ",
      "_version": 1,
@@ -36,8 +68,44 @@ the example's response:
  }
 ```
 
-## get all products
-GET /api/products
+## upload image as a new product
+POST /api/products/upload
+body: JSON of the new product to index
+for example:
+```javascript
+ {
+     "category": "Men's Clothing",
+     "sub_category": "T-Shirts",
+     "price": 151.63,
+     "condition": "New",
+     "description": "Hugo Boss Men's 100% Cotton Classic V Neck T Shirt 3 Per Pack SIZES S,M,L,XL,XXL"
+ }
+```
+the example's response:
+```javascript
+ {
+     "_index": "products",
+     "_type": "ds011248_mongolab_com_f2a7",
+     "_id": "AVL6JITbN-RaXdjIOsOJ",
+     "_version": 1,
+     "_shards": {
+         "total": 2,
+         "successful": 2,
+         "failed": 0
+     },
+     "created": true,
+     "item": {
+         "category": "Men's Clothing",
+         "sub_category": "T-Shirts",
+         "price": 151.63,
+         "condition": "New",
+         "description": "Hugo Boss Men's 100% Cotton Classic V Neck T Shirt 3 Per Pack SIZES S,M,L,XL,XXL"
+     }
+ }
+```
+
+## mark products as sold
+POST /api/products/sold/:id
 body: none
 
 example of the response:

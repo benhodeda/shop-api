@@ -5,11 +5,12 @@ var Q = require('q');
 
 function UsersService() {
     var self = this;
-    self.get = get;
-    self.getSingle = getSingle;
+
     self.deleteUser = deleteUser;
+    self.getSingle = getSingle;
     self.update = update;
     self.rate = rate;
+    self.get = get;
 
     function get() {
         var defer = Q.defer();

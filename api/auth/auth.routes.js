@@ -4,6 +4,7 @@ var google = require('./google/google.routes');
 var local = require('./local/local.routes');
 var passport = require('passport');
 var express = require('express');
+
 var router = express.Router();
 
 router.get('/logout', function (req, res) {

@@ -1,8 +1,9 @@
 var ProductsController = require('./products.controller');
-var controller = new ProductsController();
-var express = require('express');
-var router = express.Router();
 var upload = require('./upload.service');
+var express = require('express');
+
+var controller = new ProductsController();
+var router = express.Router();
 
 router.get('/search', function(req, res, next){
     var q = req.query.q;
@@ -30,6 +31,13 @@ router.get('/sold', function(req, res, next){
     });
 });
 
+router.get('/:id', function(req, res, next){
+    var id = req.params.id;
+    controller.getProduct(id).then(function(result){
+        res.json(result);
+    });
+});
+
 router.post('/', function(req, res, next){
     var product = req.body;
     controller.createProduct(product).then(function(result){
@@ -43,16 +51,17 @@ router.post('/upload', upload, function(req, res, next){
     });
 });
 
-router.delete('/:id', function(req, res, next){
-    var id = req.params.id;
-    controller.deleteProduct(id).then(function(result){
+router.post('/sold/:id', function (req, res, next) {
+    var productId = req.params.id;
+    var user = req.body;
+    controller.confirmPurchase(productId, user).then(function(result){
         res.json(result);
     });
 });
 
-router.get('/:id', function(req, res, next){
+router.delete('/:id', function(req, res, next){
     var id = req.params.id;
-    controller.getProduct(id).then(function(result){
+    controller.deleteProduct(id).then(function(result){
         res.json(result);
     });
 });
@@ -61,14 +70,6 @@ router.put('/:id', function(req, res, next){
     var id = req.params.id;
     var partial = req.body;
     controller.updateProduct(id, partial).then(function(result){
-        res.json(result);
-    });
-});
-
-router.post('/sold/:id', function (req, res, next) {
-    var productId = req.params.id;
-    var user = req.body;
-    controller.confirmPurchase(productId, user).then(function(result){
         res.json(result);
     });
 });

@@ -1,16 +1,18 @@
 module.exports = ProductsService;
 
 var elasticsearch = require('elasticsearch');
+
 var connectionString = "https://paas:bf99f452fd1c3889ec0a21fca8852b2c@dori-us-east-1.searchly.com";//process.env.SEARCHBOX_SSL_URL;
 
 function ProductsService() {
     var self = this;
-    self.index = index;
-    self.getProduct = getProduct;
-    self.getProducts = getProducts;
-    self.updateProduct = updateProduct;
-    self.deleteProduct = deleteProduct;
+
     self.getSoldProducts = getSoldProducts;
+    self.deleteProduct = deleteProduct;
+    self.updateProduct = updateProduct;
+    self.getProducts = getProducts;
+    self.getProduct = getProduct;
+    self.index = index;
 
     var client = new elasticsearch.Client({
         host: connectionString

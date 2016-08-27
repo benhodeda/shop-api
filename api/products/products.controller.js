@@ -1,22 +1,20 @@
 module.exports = ProductsController;
+
 var ProductsService = require('./products.service');
-var uploadService = require('./upload.service');
 var send = require('./emails.service');
 
-var Q = require('q');
-var uuid = require('uuid');
 var service = new ProductsService();
 
 function ProductsController() {
     var self = this;
 
-    self.getProduct = getProduct;
-    self.getProducts = getProducts;
+    self.confirmPurchase = confirmPurchase;
     self.getSoldProducts = getSoldProducts;
+    self.deleteProduct = deleteProduct;
     self.createProduct = createProduct;
     self.updateProduct = updateProduct;
-    self.deleteProduct = deleteProduct;
-    self.confirmPurchase = confirmPurchase;
+    self.getProducts = getProducts;
+    self.getProduct = getProduct;
 
 
     function getProducts(query, filters) {
@@ -51,10 +49,12 @@ function ProductsController() {
             },
             sold: true
         };
-        return service.updateProduct(productId, partial).then(function(product){
-            return send(product.seller, product, product.buyer).then(function(result){
-                result.product = product;
-                return result;
+        return service.updateProduct(productId, partial).then(function(){
+            return service.getProduct(productId).then(function(product){
+                return send(product.seller, product, product.buyer).then(function(result){
+                    result.product = product;
+                    return result;
+                })
             });
         });
     }

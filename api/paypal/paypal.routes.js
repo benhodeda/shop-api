@@ -1,6 +1,7 @@
 var PayPalController = require('./paypal.controller');
-var controller = new PayPalController();
 var express = require('express');
+
+var controller = new PayPalController();
 var router = express.Router();
 
 router.post('/', function (req, res, next) {

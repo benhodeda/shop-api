@@ -3,6 +3,7 @@ var paypal = require('./paypal/paypal.routes');
 var users = require('./users/users.routes');
 var auth = require('./auth/auth.routes');
 var express = require('express');
+
 var router = express.Router();
 
 router.use('/products', products);

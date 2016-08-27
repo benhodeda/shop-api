@@ -2,8 +2,9 @@ module.exports = sendEmails;
 
 var nodemailer = require('nodemailer');
 var moment = require('moment');
-moment.locale('he');
 var Q = require('q');
+
+moment.locale('he');
 
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -66,7 +67,7 @@ function getSellerOptions(seller, product, buyer){
 function getBuyerOptions(seller, product, buyer){
     var emailOptions = emailOptionsBase;
     emailOptions.to = buyer.email;
-    emailOptions.subject = buyer.subject;
+    emailOptions.subject = buyerOptions.subject;
     emailOptions.html = buyerOptions.callback(seller.name,product, buyer.name);
     return emailOptions;
 }
