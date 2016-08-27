@@ -1,5 +1,8 @@
 # shop-api
 
+
+# Products API
+
 ## search for available products
 GET /api/products/search
 
@@ -1226,4 +1229,230 @@ example of the response:
     "failed": 0
   }
 }
+```
+
+
+# Users API
+
+## get all the users
+GET /api/users
+
+body: none
+
+example of the response:
+```javascript
+[
+  {
+    "_id": "57bf2414d761d7110032ecbd",
+    "__v": 0,
+    "local": {
+      "name": "Elad Douenias",
+      "email": "eladdo92@gmail.com",
+      "id": "10206489864621597",
+      "rating": {
+        "total": 0,
+        "count": 0,
+        "rate": 0
+      },
+      "picture": {
+        "data": {
+          "is_silhouette": false,
+          "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xal1/v/t1.0-1/c0.113.588.588/s50x50/11695396_10204185729699664_2548305670346553542_n.jpg?oh=06e6a56b018971cfc1ab50c2ba41b695&oe=584E0B3D&__gda__=1482473106_5b2d582bab6189f2f10a28f7457df4ca"
+        }
+      }
+    }
+  },
+  {
+    "_id": "57c175db9c1c7c11000be242",
+    "__v": 0,
+    "local": {
+      "name": "Ben Hodeda",
+      "email": "benhodeda@gmail.com",
+      "id": "1215056541841072",
+      "rating": {
+        "total": 0,
+        "count": 0,
+        "rate": 0
+      },
+      "picture": {
+        "data": {
+          "is_silhouette": false,
+          "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567&__gda__=1482389067_0dbf18aaf73dc01d33fec38e9016283c"
+        }
+      }
+    }
+  }
+]
+```
+
+## get single user
+GET /api/users/:id
+
+parameters (required) :
+* id - the id of the user
+
+body: none
+
+example of the response:
+```javascript
+{
+  "_id": "57c175db9c1c7c11000be242",
+  "__v": 0,
+  "local": {
+    "name": "Ben Hodeda",
+    "email": "benhodeda@gmail.com",
+    "id": "1215056541841072",
+    "rating": {
+      "total": 0,
+      "count": 0,
+      "rate": 0
+    },
+    "picture": {
+      "data": {
+        "is_silhouette": false,
+        "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567&__gda__=1482389067_0dbf18aaf73dc01d33fec38e9016283c"
+      }
+    }
+  }
+}
+```
+
+## rate a user
+POST /api/users/:id/rate?rate=[Number]
+
+parameters (required) :
+* id - the id of the product
+* rating - a rate for the user
+
+body: none
+
+example of the response:
+```javascript
+{
+  "_id": "57c175db9c1c7c11000be242",
+  "__v": 0,
+  "local": {
+    "name": "Ben Hodeda",
+    "email": "benhodeda@gmail.com",
+    "id": "1215056541841072",
+    "rating": {
+      "total": 5,
+      "count": 1,
+      "rate": 5
+    },
+    "picture": {
+      "data": {
+        "is_silhouette": false,
+        "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567&__gda__=1482389067_0dbf18aaf73dc01d33fec38e9016283c"
+      }
+    }
+  }
+}
+```
+
+## delete user
+DELETE /api/users/:id
+
+parameters (required) :
+* id - the id of the user
+
+body: none
+
+example of the response:
+```javascript
+TBD
+```
+
+## update user
+PUT /api/users/:id
+
+parameters (required) :
+* id - the id of the user
+
+body: full JSON of the user
+```javascript
+{
+  "name": "Ben Hodeda",
+  "email": "benhodeda1@gmail.com",
+  "id": "1215056541841072",
+  "rating": {
+    "total": 0,
+    "count": 0,
+    "rate": 0
+  },
+  "picture": {
+    "data": {
+      "is_silhouette": false,
+      "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567&__gda__=1482389067_0dbf18aaf73dc01d33fec38e9016283c"
+    }
+  }
+}
+```
+example of the response:
+```javascript
+{
+    "_id": "57c175db9c1c7c11000be242",
+    "__v": 0,
+    "local": {
+        "id": "1215056541841072",
+        "email": "benhodeda1@gmail.com",
+        "name": "Ben Hodeda",
+        "rating": {
+            "rate": 0,
+            "count": 0,
+            "total": 0
+        },
+        "picture": {
+            "data": {
+                "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567&__gda__=1482389067_0dbf18aaf73dc01d33fec38e9016283c",
+                "is_silhouette": false
+            }
+        }
+    }
+}
+```
+
+
+# PayPal API
+
+## buy a product using PayPal
+POST /api/paypal
+
+body: product id & redirection url's after visiting PayPal site
+```javascript
+{
+  "product": "AVbMZvZlqYz0-3YAIMc1",
+  "cancelUrl": "http://www.google.com/",
+  "returnUrl": "http://www.ynet.com/"
+}
+```
+example of the response:
+```javascript
+{
+  "responseEnvelope": {
+    "timestamp": "2016-08-27T09:22:14.366-07:00",
+    "ack": "Success",
+    "correlationId": "c7f551a2ec264",
+    "build": "24003818"
+  },
+  "payKey": "AP-3TV139448T0521544",
+  "paymentExecStatus": "CREATED",
+  "httpStatusCode": 200,
+  "paymentApprovalUrl": "https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_ap-payment&paykey=AP-3TV139448T0521544"
+}
+```
+
+
+# Authentication API
+
+## buy a product using PayPal
+POST /api/auth/local/login
+
+body: JSON of the user to insert including email & facebook ID
+```javascript
+TBD
+```
+example of the response:
+```javascript
+TBD
 ```
