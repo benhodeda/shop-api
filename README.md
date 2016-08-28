@@ -23,7 +23,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Elad Douenias",
         "id": "10206489864621597",
@@ -57,7 +57,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Elad Douenias",
         "id": "10206489864621597",
@@ -98,7 +98,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Elad Douenias",
         "id": "10206489864621597",
@@ -140,7 +140,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Elad Douenias",
         "id": "10206489864621597",
@@ -180,7 +180,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Ben Hodeda",
         "id": "1215056541841072",
@@ -513,7 +513,7 @@ example of the response:
       "seller": {
         "rating": {
           "total": 0,
-          "count": 0,
+          "raters": []
           "rate": 0
         },
         "name": "Ben Hodeda",
@@ -550,7 +550,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Ben Hodeda",
         "id": "1215056541841072",
@@ -596,7 +596,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Elad Douenias",
         "id": "10206489864621597",
@@ -642,7 +642,7 @@ example of the response:
         "rating": {
           "total": 0,
           "rate": 0,
-          "count": 0
+          "raters": []
         },
         "name": "Ben Hodeda",
         "id": "1215056541841072",
@@ -959,7 +959,7 @@ example of the response:
     "rating": {
       "total": 0,
       "rate": 0,
-      "count": 0
+      "raters": []
     },
     "name": "Ben Hodeda",
     "id": "1215056541841072",
@@ -1007,7 +1007,7 @@ for example:
     "rating": {
       "total": 0,
       "rate": 0,
-      "count": 0
+      "raters": []
     },
     "name": "Ben Hodeda",
     "id": "1215056541841072",
@@ -1059,7 +1059,7 @@ the example's response:
             "rating": {
                 "total": 0,
                 "rate": 0,
-                "count": 0
+                "raters": []
             },
             "name": "Ben Hodeda",
             "id": "1215056541841072",
@@ -1146,7 +1146,7 @@ example of the response:
       "rating": {
         "total": 0,
         "rate": 0,
-        "count": 0
+        "raters": []
       },
       "name": "Elad Douenias",
       "id": "10206489864621597",
@@ -1251,7 +1251,7 @@ example of the response:
       "id": "10206489864621597",
       "rating": {
         "total": 0,
-        "count": 0,
+        "raters": [],
         "rate": 0
       },
       "picture": {
@@ -1271,7 +1271,7 @@ example of the response:
       "id": "1215056541841072",
       "rating": {
         "total": 0,
-        "count": 0,
+        "raters": [],
         "rate": 0
       },
       "picture": {
@@ -1304,7 +1304,7 @@ example of the response:
     "id": "1215056541841072",
     "rating": {
       "total": 0,
-      "count": 0,
+      "raters": [],
       "rate": 0
     },
     "picture": {
@@ -1324,21 +1324,41 @@ parameters (required) :
 * id - the id of the product
 * rating - a rate for the user
 
-body: none
+body: JSON of the rater
+```javascript
+{
+  "name": "Elad Douenias",
+  "email": "eladdo92@gmail.com",
+  "id": "10206489864621597",
+  "rating": {
+    "total": 0,
+    "rate": 0,
+    "raters": []
+  },
+  "picture": {
+    "data": {
+      "is_silhouette": false,
+      "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xal1/v/t1.0-1/c0.113.588.588/s50x50/11695396_10204185729699664_2548305670346553542_n.jpg?oh=06e6a56b018971cfc1ab50c2ba41b695&oe=584E0B3D&__gda__=1482473106_5b2d582bab6189f2f10a28f7457df4ca"
+    }
+  }
+}
+```
 
 example of the response:
 ```javascript
 {
-  "_id": "57c175db9c1c7c11000be242",
+  "_id": "57bf1ac59cabdf1100f89745",
   "__v": 0,
   "local": {
     "name": "Ben Hodeda",
-    "email": "benhodeda@gmail.com",
+    "email": "benhodeda-buyer@gmail.com",
     "id": "1215056541841072",
     "rating": {
       "total": 5,
-      "count": 1,
-      "rate": 5
+      "rate": 5,
+      "raters": [
+        "10206489864621597"
+      ]
     },
     "picture": {
       "data": {
@@ -1347,6 +1367,54 @@ example of the response:
       }
     }
   }
+}
+```
+
+in case the user try to rate himself, the response will have status code 401 (Unauthorized):
+```javascript
+{
+  "message": "user can't rate themselves",
+  "rater": {
+    "name": "Ben Hodeda",
+    "email": "benhodeda-buyer@gmail.com",
+    "id": "1215056541841072",
+    "rating": {
+      "total": 5,
+      "rate": 5,
+      "raters": [
+        "10206489864621597"
+      ]
+    },
+    "picture": {
+      "data": {
+        "is_silhouette": false,
+        "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567&__gda__=1482389067_0dbf18aaf73dc01d33fec38e9016283c"
+      }
+    }
+  }
+}
+```
+
+in case the user try to rate other user more then once, the response will have status code 401 (Unauthorized):
+```javascript
+{
+    "message": "Elad Douenias already rate this user",
+    "rater": {
+        "name": "Elad Douenias",
+        "email": "eladdo92@gmail.com",
+        "id": "10206489864621597",
+        "rating": {
+            "total": 0,
+            "rate": 0,
+            "raters": []
+        },
+        "picture": {
+            "data": {
+                "is_silhouette": false,
+                "url": "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xal1/v/t1.0-1/c0.113.588.588/s50x50/11695396_10204185729699664_2548305670346553542_n.jpg?oh=06e6a56b018971cfc1ab50c2ba41b695&oe=584E0B3D&__gda__=1482473106_5b2d582bab6189f2f10a28f7457df4ca"
+            }
+        }
+    }
 }
 ```
 
@@ -1369,7 +1437,7 @@ example of the response:
         "name": "Ben Hodeda",
         "rating": {
             "rate": 0,
-            "count": 0,
+            "raters": [],
             "total": 0
         },
         "picture": {
@@ -1396,7 +1464,7 @@ body: full JSON of the user
   "id": "1215056541841072",
   "rating": {
     "total": 0,
-    "count": 0,
+    "raters": [],
     "rate": 0
   },
   "picture": {
@@ -1418,7 +1486,7 @@ example of the response:
         "name": "Ben Hodeda",
         "rating": {
             "rate": 0,
-            "count": 0,
+            "raters": [],
             "total": 0
         },
         "picture": {
@@ -1492,7 +1560,7 @@ example of the response:
     "id": "10206489864621597",
     "rating": {
       "total": 0,
-      "count": 0,
+      "raters": [],
       "rate": 0
     },
     "picture": {
