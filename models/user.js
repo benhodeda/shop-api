@@ -20,7 +20,7 @@ var userSchema = mongoose.Schema({
         },
         rating: {
             total: Number,
-            count: Number,
+            raters: [String],
             rate: Number
         }
     }

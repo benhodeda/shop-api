@@ -30,7 +30,7 @@ function UsersController() {
         return service.update(id, partial);
     }
     
-    function rate(id, rating) {
-        return service.rate(id, rating);
+    function rate(id, rating, rater) {
+        return service.rate(id, rating, rater);
     }
 }

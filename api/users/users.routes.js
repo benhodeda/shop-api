@@ -21,9 +21,18 @@ router.get('/:id', function(req, res, next){
 
 router.post('/:id/rate', function (req, res, next) {
     var id = req.params.id;
+    var rater = req.body;
     var rate = Number(req.query.rate);
-    controller.rate(id, rate).then(function (result) {
+    controller.rate(id, rate, rater.id).then(function (result) {
         res.json(result);
+    }).catch(function(ratedId) {
+        var message;
+        if(ratedId === rater.id) message = "user can't rate themselves";
+        else message = rater.name + " already rate this user";
+        res.status(401).json({
+            message:  message,
+            rater: rater
+        });
     });
 });
 

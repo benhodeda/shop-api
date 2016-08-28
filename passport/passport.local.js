@@ -81,8 +81,8 @@ function insertUser(user, done) {
     newUser.local = user;
     newUser.local.rating = {
         total: 0,
-        count: 0,
-        rate: 0
+        rate: 0,
+        raters: []
     };
     newUser.save(function (err) {
         if (err)

@@ -48,12 +48,13 @@ function UsersService() {
         return defer.promise;
     }
 
-    function rate(id, rating) {
+    function rate(id, rating, rater) {
         return getSingle(id).then(function(user){
             var user = user._doc.local;
+            if (user.rating.raters.indexOf(rater) != -1 || user.id === rater) throw user.id;
             user.rating.total += rating;
-            user.rating.count++;
-            user.rating.rate = user.rating.total / user.rating.count;
+            user.rating.raters.push(rater);
+            user.rating.rate = user.rating.total / user.rating.raters.length;
             return update(id, user);
         });
     }
