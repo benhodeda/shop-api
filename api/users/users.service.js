@@ -50,7 +50,7 @@ function UsersService() {
 
     function rate(id, rating, rater) {
         return getSingle(id).then(function(user){
-            var user = user._doc.local;
+            user = user._doc.local;
             if (user.rating.raters.indexOf(rater) != -1 || user.id === rater) throw user.id;
             user.rating.total += rating;
             user.rating.raters.push(rater);

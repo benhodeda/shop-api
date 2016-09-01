@@ -29,13 +29,18 @@ function UsersController() {
     }
     
     function updateUser(id, partial) {
-        return service.update(id, partial);
+        return service.update(id, partial).then(function(result){
+            var partial = result._doc.local;
+            return productsService.updateUserProducts(id, {seller: partial}).then(function(){
+                return result;
+            })
+        });
     }
     
     function rate(id, rating, rater) {
         return service.rate(id, rating, rater).then(function(result){
-            var partial = result._doc.local.rating;
-            return productsService.updateUserProducts(id, {seller: {rating: partial}}).then(function(){
+            var partial = result._doc.local;
+            return productsService.updateUserProducts(id, {seller: partial}).then(function(){
                 return result;
             })
         });

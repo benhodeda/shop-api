@@ -15,7 +15,10 @@ var userSchema = mongoose.Schema({
             }
         },
         settings: {
-            defaultOrg: String,
+            defaultOrg: {
+                name: String,
+                email: String
+            },
             defaultPercents: Number
         },
         rating: {
