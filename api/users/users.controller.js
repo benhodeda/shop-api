@@ -1,8 +1,10 @@
 module.exports = UsersController;
 
 var UsersService = require('./users.service');
+var ProductsService = require('../products/products.service');
 
 var service = new UsersService();
+var productsService = new ProductsService();
 
 function UsersController() {
     var self = this;
@@ -31,6 +33,11 @@ function UsersController() {
     }
     
     function rate(id, rating, rater) {
-        return service.rate(id, rating, rater);
+        return service.rate(id, rating, rater).then(function(result){
+            var partial = result._doc.local.rating;
+            return productsService.updateUserProducts(id, {seller: {rating: partial}}).then(function(){
+                return result;
+            })
+        });
     }
 }

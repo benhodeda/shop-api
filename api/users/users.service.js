@@ -23,7 +23,7 @@ function UsersService() {
 
     function getSingle(id) {
         var defer = Q.defer();
-        User.findById(id, function (err, user) {
+        User.findByFid(id, function (err, user) {
             if(err) defer.reject(err);
             defer.resolve(user);
         });
@@ -41,7 +41,7 @@ function UsersService() {
 
     function update(id, partial) {
         var defer = Q.defer();
-        User.findByIdAndUpdate(id, {local: partial}, function (err, user) {
+        User.findOneAndUpdate({"local.id" :id }, {local: partial}, function (err, user) {
             if(err) defer.reject(err);
             defer.resolve(user);
         });

@@ -1,5 +1,6 @@
 module.exports = ProductsService;
 
+var Q = require('q');
 var elasticsearch = require('elasticsearch');
 
 var connectionString = "https://paas:bf99f452fd1c3889ec0a21fca8852b2c@dori-us-east-1.searchly.com";//process.env.SEARCHBOX_SSL_URL;
@@ -7,6 +8,7 @@ var connectionString = "https://paas:bf99f452fd1c3889ec0a21fca8852b2c@dori-us-ea
 function ProductsService() {
     var self = this;
 
+    self.updateUserProducts = updateUserProducts;
     self.getSoldProducts = getSoldProducts;
     self.deleteProduct = deleteProduct;
     self.updateProduct = updateProduct;
@@ -281,6 +283,21 @@ function ProductsService() {
         }).then(function (error, response){
             if(error) return error;
             return response;
+        });
+    }
+
+    function updateUserProducts(userFid, partial) {
+        var promises = [];
+        return client.search({
+            index: productsIndex,
+            q: "seller.id:" + userFid
+        }).then(function (results) {
+            results.hits.hits.forEach(function (result) {
+                promises.push(updateProduct(result._id, partial));
+            });
+            return Q.all(promises, function(response){
+                return response;
+            });
         });
     }
 }
