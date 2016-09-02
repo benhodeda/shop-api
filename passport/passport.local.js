@@ -2,6 +2,9 @@ module.exports = initializeLocal;
 
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var UserService = require('../api/users/users.service');
+
+var userService = new UserService();
 
 var emailStrategy = {
     // by default, local strategy uses username and password, we will override with email
@@ -25,7 +28,9 @@ function initializeLocal(passport) {
                     if (!user) {
                         //  If we're logged in, we're connecting a new local account.
                         if (req.user) {
-                            return done(null, req.user);
+                            updateUser(req.user, done);
+                            //https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567
+                            //return done(null, req.user);
                         }
                         //  We're not logged in, so we're creating a brand new user.
                         else {
@@ -35,7 +40,7 @@ function initializeLocal(passport) {
                     }
                     // all is well, return user
                     else
-                        return done(null, user);
+                        updateUser(req.body, done);
                 });
             });
         }));
@@ -89,4 +94,13 @@ function insertUser(user, done) {
             throw err;
         return done(null, newUser);
     });
+}
+
+function updateUser(user, done) {
+    User.findOneAndUpdate({"local.id": user.id }, {"local.picture": user.picture}, function (err, user) {
+        if (err)
+            throw err;
+        return done(null, user);
+    });
+    
 }
