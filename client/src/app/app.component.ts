@@ -113,11 +113,19 @@ export class App implements OnInit {
   userLoggedIn() {
     this.isUserLoggedIn = true;
     this.routs = this.routs.filter(r => r.name !== 'Login');
+    this.authMediator.onLogout.subscribe(() => {
+      this.userLoggedOut();
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   userLoggedOut() {
     this.isUserLoggedIn = false;
     this.routs = ROUTS;
+    this.authMediator.onLogin.subscribe(() => {
+      this.userLoggedIn();
+      this.changeDetectorRef.detectChanges();
+    });
   }
 
   onSearchClick() {

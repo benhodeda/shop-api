@@ -36,7 +36,8 @@
         </md-card-subtitle>
       </md-card-header>
 
-      <section *ngIf="!isMyProduct()">
+
+      <section *ngIf="user && !isMyProduct()">
         <p *ngIf="!product.seller.rating?.rate">
           אף אחד עדיין לא דירג את המוכר/ת. תהיי/ה הראשונ/ה!
         </p>
@@ -48,7 +49,7 @@
         </p>
       </section>
 
-      <section *ngIf="isMyProduct()">
+      <section *ngIf="user && isMyProduct()">
         <p *ngIf="!product.seller.rating?.rate">
 אף אחד עדיין לא דירג אותך, הצע/י זאת לקונים שלך!
         </p>
@@ -61,7 +62,7 @@
       </section>
 
       <h-rate-panel
-        [disabled]="justRated || !canRateUser()"
+        [disabled]="!user || justRated || !canRateUser()"
         [rating]="product.seller.rating.rate" (rate)="sellerRate($event)"></h-rate-panel>
 
 
@@ -81,7 +82,7 @@
 
       </section>
 
-      <md-toolbar *ngIf="!product.sold">
+      <md-toolbar *ngIf="user && !product.sold">
         <button *ngIf="!isMyProduct()" (click)="buyProduct()" md-raised-button color="primary">בצע רכישה</button>
         <button *ngIf="isMyProduct()" (click)="buyProduct()" md-raised-button color="accent">מחק מוצר</button>
       </md-toolbar>

@@ -2,6 +2,10 @@
   הסטטיסטיקות שלי
 </h2>
 
+<p class="stat-info">
+  כאן תוכל/י לראות את הרווחים שהעברת לתרומה - לאילו אירגונים ועמותות הועברו התרומות, וכמה הועבר לכל אחד מהם. המידע מופיע ב-₪.
+</p>
+
 <md-spinner *ngIf="!pieChartData || !pieChartLabels"></md-spinner>
 
 <base-chart *ngIf="pieChartData && pieChartData.length && pieChartLabels && pieChartLabels.length"

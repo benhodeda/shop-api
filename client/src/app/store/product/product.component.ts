@@ -12,6 +12,7 @@ import {RatePanelComponent} from "../components/rate.panel.component";
 })
 export class ProductComponent {
   product;
+  user;
   justRated: boolean;
 
   constructor(
@@ -23,8 +24,8 @@ export class ProductComponent {
   }
 
   ngOnInit() {
+    this.user = this.authMediator.user;
     let id = this.routeParams.get('id');
-
     this.proxy.getProduct(id)
       .subscribe(product => this.product = product);
   }
@@ -42,15 +43,13 @@ export class ProductComponent {
   }
 
   isMyProduct() {
-    let user = this.authMediator.user;
-    return user && this.product.seller &&
-      user.email === this.product.seller.email;
+    return this.user && this.product.seller &&
+      this.user.email === this.product.seller.email;
   }
 
   sellerRate(rate) {
     this.justRated = true;
-    let user = this.authMediator.user;
-    this.proxy.rateUser(this.product.seller.id, rate, user).
+    this.proxy.rateUser(this.product.seller.id, rate, this.user).
       subscribe(() => { });
   }
 
