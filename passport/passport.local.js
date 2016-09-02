@@ -40,7 +40,7 @@ function initializeLocal(passport) {
                     }
                     // all is well, return user
                     else
-                        return done(null, user);
+                        updateUser(req.user, done);
                 });
             });
         }));
@@ -97,11 +97,10 @@ function insertUser(user, done) {
 }
 
 function updateUser(user, done) {
-    User.findOneAndUpdate({"local.id" :user.id }, {local: user}, function (err, user) {
+    User.findOneAndUpdate({"local.id": user.id }, {"local.picture": user.picture}, function (err, user) {
         if (err)
             throw err;
-        console.log("--------------test------------------")
-        console.log(user);
+        req.user = user;
         return done(null, user);
     });
     
