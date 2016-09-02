@@ -97,6 +97,10 @@ function insertUser(user, done) {
 }
 
 function updateUser(user, done) {
-    userService.update(user.id, user);
-    return done(null, user);
+    User.findOneAndUpdate({"local.id" :user.id }, {local: user}, function (err, user) {
+        if (err)
+            throw err;
+        return done(null, user);
+    });
+    
 }
