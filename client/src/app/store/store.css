@@ -1,0 +1,17 @@
+.menu {
+  display: none;
+}
+
+.show-menu .menu {
+  display: block;
+  width: 270px;
+  background-color: white;
+  height: 100vh;
+  position: fixed;
+  box-shadow: 7px 0px 20px 0px #424242;
+}
+
+.show-menu .store-content {
+  width: calc(100vw - 270px);
+  margin-right: 270px;
+}

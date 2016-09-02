@@ -1,0 +1,41 @@
+.container {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.container md-card {
+  width: 80%;
+  margin: 50px;
+}
+
+md-toolbar {
+  background-color: #8bc34a;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.no-pointer-events {
+  pointer-events: none;
+}
+
+[md-raised-button] {
+  margin-right: 3px;
+  margin-left: 10px;
+}
+
+a[href] {
+  color: #ff5722
+}
+
+img.preview {
+  cursor: pointer;
+  max-height: 100px;
+}
+
+img.full-size {
+  max-width: 100%
+}

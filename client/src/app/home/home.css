@@ -1,0 +1,147 @@
+/*styles for home content only*/
+.card-container{
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    border: 2px dashed #FBC02D;
+}
+.sample-content{
+    flex: 1;
+}
+
+.card-container md-card{
+    margin: 5px;
+}
+
+/*  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  */
+
+.main {
+  position: relative;
+  background: url('./assets/img/home/sweatshirts.jpg') center 30% no-repeat;
+  height: calc(100vh - 64px);
+}
+
+.slogan-wrapper {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%)
+}
+
+.slogan-wrapper div {
+  color: #E0F2F1;
+  font-weight: 500;
+}
+
+.slogan {
+  font-size: 60px;
+}
+
+.sub-slogan {
+  font-size: 21px;
+  padding-top: 24px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+
+.jambo {
+  font-size: 20pt;
+  padding: 50px 0;
+  font-weight: 100;
+  text-align: center;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+
+.tools {
+  background: url('./assets/img/home/tools.jpg') center top no-repeat;
+  position: relative;
+  background-size: cover;
+  height: 800px;
+}
+
+.band {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #37474f;
+}
+
+.band-text {
+  max-width: 800px;
+  padding: 24px;
+  color: white;
+  margin-left: 0;
+  margin-right: 25%;
+  text-align: right;
+}
+
+.band-text div {
+  font-size: 20pt;
+  font-weight: 400;
+}
+.band-text p {
+  font-size: 13pt;
+  font-weight: 100;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+
+.customized {
+  text-align: center;
+}
+
+.customized-text {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 80px 16px 0 16px;
+}
+
+.customized-text div {
+  font-size: 20pt;
+  font-weight: 400;
+}
+
+.customized-image {
+  background: url('./assets/img/home/team.jpg') center top no-repeat;
+  background-size: cover;
+  height: 400px;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~ */
+
+.cards-wrapper {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: flex-start;
+  align-items: center;
+}
+
+
+.cards-wrapper md-card {
+  width: 25%;
+}
+
+.cards-wrapper md-card img {
+  height: 300px;
+}
+
+.cards-wrapper md-card img.environmental {
+  background: url('./assets/img/home/environmental-protection.jpg') center top 30% no-repeat;
+  background-size: cover;
+}
+
+.cards-wrapper md-card img.hands {
+  background: url('./assets/img/home/clasped-hands.jpg') center top 50% no-repeat;
+  background-size: cover;
+}
+
+.cards-wrapper md-card img.house {
+   background: url('./assets/img/home/house-construction.jpg') center top no-repeat;
+  background-size: cover;
+ }
+
+

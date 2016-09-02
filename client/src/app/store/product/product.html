@@ -1,0 +1,91 @@
+<section class="container">
+  <md-card *ngIf="product">
+    <md-card-content>
+      <md-toolbar>פרטים</md-toolbar>
+
+      <lable>קטגוריה:</lable>
+      <button class="no-pointer-events" md-raised-button>{{ product.category }}</button>
+      <lable>תת-קטגוריה:</lable>
+      <button class="no-pointer-events" md-raised-button>{{ product.sub_category }}</button>
+      <lable>מחיר:</lable>
+      <button class="no-pointer-events" md-raised-button>{{ '₪ ' + product.price }}</button>
+      <lable *ngIf="product.condition">מצב:</lable>
+      <button *ngIf="product.condition" class="no-pointer-events" md-raised-button>{{ product.condition }}</button>
+      <lable *ngIf="product.color">צבע:</lable>
+      <button *ngIf="product.color" class="no-pointer-events" md-raised-button>{{ product.color }}</button>
+
+      <md-toolbar>תיאור</md-toolbar>
+      <p>{{ product.description }}</p>
+
+      <md-toolbar>פרטים נוספים</md-toolbar>
+      <p>
+        {{ product.percent }}%
+        מרווחי המכירה יועברו אל
+        <i>{{ product.organization.name }}</i>.
+      </p>
+
+      <md-toolbar>פרטי המוכר/ת</md-toolbar>
+      <md-card-header>
+        <img md-card-avatar [src]="product.seller.picture.data.url">
+        <md-card-title>{{ product.seller.name }}</md-card-title>
+        <md-card-subtitle>
+          מייל ליצירת קשר:
+          <a
+            [href]="'mailto:' + product.seller.email + '?subject=פניה לגבי מוצר&body=תיאור המוצר: ' + product.description">
+            {{ product.seller.email }}</a>
+        </md-card-subtitle>
+      </md-card-header>
+
+      <section *ngIf="!isMyProduct()">
+        <p *ngIf="!product.seller.rating?.rate">
+          אף אחד עדיין לא דירג את המוכר/ת. תהיי/ה הראשונ/ה!
+        </p>
+        <p *ngIf="product.seller.rating?.rate">
+          כבר
+          {{ product.seller.rating.raters.length }}
+          אנשים דירגו את המוכר/ת. דירוגו/ה הנוכחי הוא
+          {{ product.seller.rating.rate }}.
+        </p>
+      </section>
+
+      <section *ngIf="isMyProduct()">
+        <p *ngIf="!product.seller.rating?.rate">
+אף אחד עדיין לא דירג אותך, הצע/י זאת לקונים שלך!
+        </p>
+        <p *ngIf="product.seller.rating?.rate">
+          כבר
+          {{ product.seller.rating.raters.length }}
+          אנשים דירגו אותך. דירוגך הנוכחי הוא
+          {{ product.seller.rating.rate }}.
+        </p>
+      </section>
+
+      <h-rate-panel
+        [disabled]="justRated || !canRateUser()"
+        [rating]="product.seller.rating.rate" (rate)="sellerRate($event)"></h-rate-panel>
+
+
+      <section *ngIf="product.image">
+      <md-toolbar>
+        תמונה
+      <h6>
+           (לחץ להגדלה)
+      </h6>
+      </md-toolbar>
+      <img class="preview" [src]="'https://mta-shopapi.herokuapp.com/' + product.image" (click)="showImgPopup = true">
+
+      <h-popup (close)="showImgPopup = false" *ngIf="showImgPopup">
+        <md-toolbar>גודל מלא</md-toolbar>
+        <img class="full-size" [src]="'https://mta-shopapi.herokuapp.com/' + product.image">
+      </h-popup>
+
+      </section>
+
+      <md-toolbar *ngIf="!product.sold">
+        <button *ngIf="!isMyProduct()" (click)="buyProduct()" md-raised-button color="primary">בצע רכישה</button>
+        <button *ngIf="isMyProduct()" (click)="buyProduct()" md-raised-button color="accent">מחק מוצר</button>
+      </md-toolbar>
+
+    </md-card-content>
+  </md-card>
+</section>

@@ -20,7 +20,7 @@ passportInit(passport);
 var api = require('./api/api.routes');
 
 var app = express();
-app.use(express.static('public'));
+app.use(express.static('client/dist'));
 app.use(express.static('./api/products/uploads'));
 app.use(logger('dev'));
 app.use(bodyParser.json());

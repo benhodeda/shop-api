@@ -1,0 +1,174 @@
+@font-face {
+  font-family: 'Open Sans Hebrew';
+  font-style: normal;
+  font-weight: 400;
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Regular.eot");
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Regular.eot?#iefix") format("embedded-opentype"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Regular.woff") format("woff"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Regular.ttf") format("truetype")
+}
+
+@font-face {
+  font-family: 'Open Sans Hebrew';
+  font-style: normal;
+  font-weight: 700;
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Bold.eot");
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Bold.eot?#iefix") format("embedded-opentype"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Bold.woff") format("woff"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Bold.ttf") format("truetype")
+}
+
+@font-face {
+  font-family: 'Open Sans Hebrew';
+  font-style: italic;
+  font-weight: 400;
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Italic.eot");
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Italic.eot?#iefix") format("embedded-opentype"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Italic.woff") format("woff"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Italic.ttf") format("truetype")
+}
+
+@font-face {
+  font-family: 'Open Sans Hebrew';
+  font-style: italic;
+  font-weight: 700;
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-BoldItalic.eot");
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-BoldItalic.eot?#iefix") format("embedded-opentype"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-BoldItalic.woff") format("woff"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-BoldItalic.ttf") format("truetype")
+}
+
+@font-face {
+  font-family: 'Open Sans Hebrew';
+  font-style: normal;
+  font-weight: 300;
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Light.eot");
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Light.eot?#iefix") format("embedded-opentype"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Light.woff") format("woff"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-Light.ttf") format("truetype")
+}
+
+@font-face {
+  font-family: 'Open Sans Hebrew';
+  font-style: italic;
+  font-weight: 300;
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-LightItalic.eot");
+  src: url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-LightItalic.eot?#iefix") format("embedded-opentype"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-LightItalic.woff") format("woff"),
+  url("http://themes.googleusercontent.com/static/fonts/earlyaccess/opensanshebrew/v1/OpenSansHebrew-LightItalic.ttf") format("truetype")
+}
+
+html {
+  background: #F4FAFA;
+}
+
+router-outlet + * {
+  min-height: 80vh;
+}
+
+.bg-logo {
+  z-index: -1;
+  opacity: 0.5;
+  height: 200px;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
+
+*:not(.material-icons) {
+  font-family: 'Open Sans Hebrew', Arial, sans-serif;
+}
+
+button.active{
+  background: #fff;
+  color: #009688;
+}
+
+button.active:hover{
+  color: #fff;
+}
+
+.fill{
+  flex: 1 1 auto;
+}
+
+template, [hidden] {
+  display: none !important;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+
+.top-toolbar {
+  position: fixed;
+  z-index: 99;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.top-toolbar .search-input input {
+  background-color: transparent;
+}
+
+.search-input-icon {
+  cursor: pointer;
+}
+
+.search-form {
+  width: 100%;
+}
+
+.search-input {
+  width: 90%;
+  margin: 0 20px;
+}
+
+.search-input-icon {
+  margin-top: 3px;
+  margin-right: 15px;
+}
+
+router-outlet{
+  margin-bottom: 64px;
+}
+md-content{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+footer{
+  margin: 30px 0;
+  flex: 0 0 60px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+.text-center {
+  text-align: center;
+}
+.alt-link {
+  text-decoration: none;
+  font-size: 16px;
+  color: #81D4FA !important;
+}
+.alt-link .material-icons {
+  position: relative;
+  top: 6px;
+}
+.link:hover {
+  color: #008377 !important;
+}
+.link {
+  text-decoration: none;
+  color: #009688 !important;
+}
+.fb-avatar {
+  margin-right: 15px;
+  cursor: pointer;
+}
+.chart {
+  display: block; width: 100%;
+}

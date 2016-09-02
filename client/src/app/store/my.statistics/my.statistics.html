@@ -1,0 +1,17 @@
+<h2 class="title">
+  הסטטיסטיקות שלי
+</h2>
+
+<md-spinner *ngIf="!pieChartData || !pieChartLabels"></md-spinner>
+
+<base-chart *ngIf="pieChartData && pieChartData.length && pieChartLabels && pieChartLabels.length"
+            class="chart"
+            [data]="pieChartData"
+            [labels]="pieChartLabels"
+            chartType="pie">
+</base-chart>
+
+<div class="no-res"
+     *ngIf="(pieChartData && !pieChartData.length) || (pieChartLabels && !pieChartLabels.length)">
+  עדיין לא מכרת כלום :(
+</div>

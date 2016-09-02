@@ -1,0 +1,11 @@
+<h2 class="title">
+  החנות שלי
+  <input type="button" [routerLink]="['UploadProduct']" md-raised-button class="md-primary upload" value="פרסם בגד" />
+
+</h2>
+<h-products [products]="products"></h-products>
+<div class="no-res" *ngIf="products && products.length === 0">
+  לא פרסמת בגדים עדיין :(
+</div>
+
+

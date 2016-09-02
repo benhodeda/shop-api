@@ -1,0 +1,13 @@
+md-card {
+  height: calc((95vw - 240px) / 4)
+}
+
+md-card-actions {
+  position: absolute;
+  bottom: 25px;
+}
+
+md-card-content {
+  height: calc((95vw - 560px) / 4);
+  overflow-x: hidden;
+}

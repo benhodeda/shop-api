@@ -1,0 +1,117 @@
+<h2 class="title">
+חיפוש מתקדם
+</h2>
+
+<section class="search-panel" *ngIf="facets">
+  <md-card>
+    <md-card-content>
+      <form (ngSubmit)="onSearch()">
+
+        <section *ngIf="facets['category'].length">
+          <h4>קטגוריה</h4>
+          <md-radio-group [(ngModel)]="search['category']">
+            <md-radio-button *ngFor="let v of facets['category'] | noneZeroFacet" [value]="v.key">
+              {{ v.key }} ({{v.doc_count}})
+            </md-radio-button>
+          </md-radio-group>
+        </section>
+
+        <section *ngIf="facets['sub_category'].length">
+          <h4>קטגוריה</h4>
+          <md-radio-group [(ngModel)]="search['sub_category']">
+            <md-radio-button *ngFor="let v of facets['sub_category'] | noneZeroFacet" [value]="v.key">
+              {{ v.key }} ({{v.doc_count}})
+            </md-radio-button>
+          </md-radio-group>
+        </section>
+
+        <section *ngIf="facets['price'].length">
+          <h4>טווח מחירים</h4>
+          <md-radio-group [(ngModel)]="search['price']">
+            <md-radio-button *ngFor="let v of facets['price'] | noneZeroFacet" [value]="v.key">
+              {{ v.key }} ({{v.doc_count}})
+            </md-radio-button>
+          </md-radio-group>
+        </section>
+
+        <section *ngIf="facets['organization.name'].length">
+          <h4>ארגון</h4>
+          <md-radio-group [(ngModel)]="search['organization.name']">
+            <md-radio-button *ngFor="let v of facets['organization.name'] | noneZeroFacet" [value]="v.key">
+              {{ v.key }} ({{v.doc_count}})
+            </md-radio-button>
+          </md-radio-group>
+        </section>
+
+        <section *ngIf="facets['percent'].length">
+          <h4>אחוזי תרומה</h4>
+          <md-radio-group [(ngModel)]="search['percent']">
+            <md-radio-button *ngFor="let v of facets['percent'] | noneZeroFacet" [value]="v.key">
+              {{ v.key }} ({{v.doc_count}})
+            </md-radio-button>
+          </md-radio-group>
+        </section>
+
+        <section (click)="showMore = !showMore">
+          <h3 class="show-more">
+            {{ showMore ? 'הצג פחות...' : 'הצג עוד...' }}
+          </h3>
+        </section>
+
+        <div *ngIf="showMore">
+          <section *ngIf="facets['location'].length">
+            <h4>מצב הבגד</h4>
+            <md-radio-group [(ngModel)]="search['location']">
+              <md-radio-button *ngFor="let v of facets['location'] | noneZeroFacet" [value]="v.key">
+                {{ v.key }} ({{v.doc_count}})
+              </md-radio-button>
+            </md-radio-group>
+          </section>
+
+
+          <section *ngIf="facets['condition'].length">
+            <h4>מצב הבגד</h4>
+            <md-radio-group [(ngModel)]="search['condition']">
+              <md-radio-button *ngFor="let v of facets['condition'] | noneZeroFacet" [value]="v.key">
+                {{ v.key }} ({{v.doc_count}})
+              </md-radio-button>
+            </md-radio-group>
+          </section>
+
+          <section *ngIf="facets['color'].length">
+            <h4>צבע</h4>
+            <md-radio-group [(ngModel)]="search['color']">
+              <md-radio-button *ngFor="let v of facets['color'] | noneZeroFacet" [value]="v.key">
+                {{ v.key }} ({{v.doc_count}})
+              </md-radio-button>
+            </md-radio-group>
+          </section>
+
+          <section *ngIf="facets['size'].length">
+            <h4>מידה</h4>
+            <md-radio-group class="ltr" [(ngModel)]="search['size']">
+              <md-radio-button *ngFor="let v of facets['size'] | noneZeroFacet" [value]="v.key">
+                {{ v.key }} ({{v.doc_count}})
+              </md-radio-button>
+            </md-radio-group>
+          </section>
+        </div>
+
+        <span class="button-group">
+          <input type="submit" md-raised-button class="md-primary" value="חיפוש"/>
+          <input type="button" md-raised-button value="נקה" (click)="reset()" />
+        </span>
+
+
+      </form>
+    </md-card-content>
+  </md-card>
+</section>
+
+<h-products [products]="products"></h-products>
+
+<div class="no-res" *ngIf="products && products.length === 0">
+לא נמצאו תוצאות :(
+</div>
+
+

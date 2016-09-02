@@ -1,0 +1,15 @@
+.title {
+  margin-right: 20px;
+}
+
+md-spinner {
+  display: block;
+  margin: 0 auto;
+  width: 300px;
+  height: 300px;
+}
+
+.no-res {
+  text-align: center;
+  margin: 30px;
+}

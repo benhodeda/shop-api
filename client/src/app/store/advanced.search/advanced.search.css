@@ -1,0 +1,42 @@
+.title {
+  margin-right: 20px;
+}
+.search-panel {
+  margin: 0 20px;
+}
+.no-res {
+  text-align: center;
+  margin: 30px;
+}
+
+md-radio-group {
+  display: inline-block;
+}
+
+md-radio-group.ltr {
+  direction: ltr;
+  text-align: right;
+}
+
+md-radio-button {
+  display: block;
+}
+
+form section {
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 20px;
+}
+
+.show-more {
+  color: #4CAF50;
+  cursor: pointer;
+}
+
+.button-group {
+  display: block;
+  width: 180px;
+  margin: 20px auto 0px auto;
+}
+
+/*md-radio-button /deep/*/
