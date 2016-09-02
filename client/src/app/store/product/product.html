@@ -84,7 +84,7 @@
 
       <md-toolbar *ngIf="user && !product.sold">
         <button *ngIf="!isMyProduct()" (click)="buyProduct()" md-raised-button color="primary">בצע רכישה</button>
-        <button *ngIf="isMyProduct()" (click)="buyProduct()" md-raised-button color="accent">מחק מוצר</button>
+        <button *ngIf="isMyProduct()" (click)="deleteProduct()" md-raised-button color="accent">מחק מוצר</button>
       </md-toolbar>
 
     </md-card-content>

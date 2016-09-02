@@ -31,7 +31,7 @@ export class FacebookProxy {
           } else {
             FB.login(
               observer.next,
-              { scope: ['public_profile', 'user_about_me'] });
+              { scope: ['public_profile', 'user_about_me', 'email'] });
           }
         },
 
@@ -40,7 +40,7 @@ export class FacebookProxy {
         _ => {
           FB.login(
             observer.next,
-            { scope: ['public_profile', 'user_about_me'] });
+            { scope: ['public_profile', 'user_about_me', 'email'] });
         });
     });
 

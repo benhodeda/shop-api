@@ -151,7 +151,7 @@ import {ImageUploader} from "../../services/image.uploader";
           </select>
         </div>
         
-        <md-input type="number" step="5" min="5" required [(ngModel)]="percent" placeholder="אחוזים" ngControl="percent">
+        <md-input type="number" step="5" min="5" max="100" required [(ngModel)]="percent" placeholder="אחוזים" ngControl="percent">
           <md-hint align="end">%</md-hint>
         </md-input>
         
