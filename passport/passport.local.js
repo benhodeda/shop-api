@@ -28,9 +28,9 @@ function initializeLocal(passport) {
                     if (!user) {
                         //  If we're logged in, we're connecting a new local account.
                         if (req.user) {
-                            //updateUser(req.user, done);
+                            updateUser(req.user, done);
                             //https://scontent.xx.fbcdn.net/v/t1.0-1/p50x50/11220465_1115504041796323_9039949048623471474_n.jpg?oh=b8063f79f4b9a9e140d592a7d980012f&oe=5853B567
-                            return done(null, req.user);
+                            //return done(null, req.user);
                         }
                         //  We're not logged in, so we're creating a brand new user.
                         else {
@@ -98,5 +98,5 @@ function insertUser(user, done) {
 
 function updateUser(user, done) {
     userService.update(user.id, user);
-    done(null, user)
+    return done(null, user);
 }
