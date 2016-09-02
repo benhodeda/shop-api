@@ -100,6 +100,8 @@ function updateUser(user, done) {
     User.findOneAndUpdate({"local.id" :user.id }, {local: user}, function (err, user) {
         if (err)
             throw err;
+        console.log("--------------test------------------")
+        console.log(user);
         return done(null, user);
     });
     
