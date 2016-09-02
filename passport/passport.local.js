@@ -2,6 +2,9 @@ module.exports = initializeLocal;
 
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var UserService = require('../api/users/users.service');
+
+var userService = new UserService();
 
 var emailStrategy = {
     // by default, local strategy uses username and password, we will override with email
@@ -25,7 +28,7 @@ function initializeLocal(passport) {
                     if (!user) {
                         //  If we're logged in, we're connecting a new local account.
                         if (req.user) {
-                            return done(null, req.user);
+                            updateUser(req.user, done);
                         }
                         //  We're not logged in, so we're creating a brand new user.
                         else {
@@ -89,4 +92,9 @@ function insertUser(user, done) {
             throw err;
         return done(null, newUser);
     });
+}
+
+function updateUser(user, done) {
+    userService.update(user.id, user);
+    return done(null, user);
 }
