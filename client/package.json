@@ -1,9 +1,9 @@
 {
-  "name": "angular2-webpack-starter",
-  "version": "5.0.4",
-  "description": "An Angular 2 Webpack Starter kit featuring Angular 2 (Router, Http, Forms, Services, Tests, E2E, Coverage), Karma, Protractor, Jasmine, Istanbul, TypeScript, and Webpack by AngularClass",
-  "author": "Patrick Stapleton <patrick@angularclass.com>",
-  "homepage": "https://github.com/angularclass/angular2-webpack-starter",
+  "name": "hand2hand-client",
+  "version": "2.0.1",
+  "description": "A web client for hand2hand - Angular 2 (Router, Http, Forms, Services), TypeScript, and Webpack",
+  "author": "Elad Douenias <eladdo92@gmail.com>",
+  "homepage": "http://mta-shopapi.herokuapp.com/",
   "license": "MIT",
   "scripts": {
     "rimraf": "rimraf",
@@ -128,13 +128,6 @@
     "webpack-dev-server": "^1.14.1",
     "webpack-md5-hash": "^0.0.5",
     "webpack-merge": "^0.12.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/angularclass/angular2-webpack-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/angularclass/angular2-webpack-starter/issues"
   },
   "engines": {
     "node": ">= 4.2.1",
