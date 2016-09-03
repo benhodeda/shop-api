@@ -3,8 +3,6 @@ import { Router } from '@angular/router-deprecated';
 import {ApiProxy} from "../../services/api.proxy";
 import {categories, conditions, organizations, sizes} from '../../services/categories';
 import {AuthMediator} from "../../services/auth.mediator";
-import {ImageUploader} from "../../services/image.uploader";
-
 
 @Component({
   selector: 'upload-product',
@@ -183,12 +181,16 @@ export class UploadProductComponent {
 
   constructor(
     protected router: Router,
-    protected imageUploader: ImageUploader,
     protected authMediator: AuthMediator,
     protected apiProxy: ApiProxy) {
   }
 
   ngOnInit() {
+    if (!this.authMediator.user) {
+      this.router.navigate(['/Store']);
+      return;
+    }
+
     let settings = this.authMediator.user.settings;
 
     if(settings) {

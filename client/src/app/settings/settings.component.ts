@@ -92,6 +92,12 @@ export class SettingsComponent {
   }
 
   ngOnInit() {
+    if (!this.user) {
+      this.router.navigate(['Home']);
+      return;
+    }
+
+
     let settings = this.user.settings;
 
     if(settings) {

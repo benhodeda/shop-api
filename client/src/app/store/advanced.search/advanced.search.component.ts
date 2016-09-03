@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {ApiProxy} from '../../services';
+import {ApiProxy, AuthMediator} from '../../services';
 import {ProductComponent} from '../components/products.component';
+import {Router} from "@angular/router-deprecated";
 import {NoneZeroFacetPipe} from "../../pipes/none.zero.facet.pipe";
 
 @Component({
@@ -17,9 +18,17 @@ export class AdvancedSearchComponent {
   facets;
   search = {};
 
-  constructor(protected proxy:ApiProxy) { }
+  constructor(
+      protected proxy:ApiProxy,
+      protected authMediator: AuthMediator,
+      protected router: Router) { }
 
   ngOnInit() {
+    if (!this.authMediator.user) {
+      this.router.navigate(['/Store']);
+      return;
+    }
+
     this.proxy.getAllProductsForSearch()
       .subscribe(res => {
         this.products = this.allProducts = res.products;

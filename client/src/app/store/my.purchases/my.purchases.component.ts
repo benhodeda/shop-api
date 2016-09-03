@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router-deprecated";
 import { ApiProxy } from '../../services';
 import { ProductComponent } from '../components/products.component';
 import {AuthMediator} from "../../services/auth.mediator";
@@ -14,11 +15,17 @@ export class MyPurchases {
   products;
 
   constructor(
-    protected authMediator: AuthMediator,
-    protected proxy: ApiProxy) {
+      protected router: Router,
+      protected authMediator: AuthMediator,
+      protected proxy: ApiProxy) {
   }
 
   ngOnInit() {
+    if (!this.authMediator.user) {
+      this.router.navigate(['/Store']);
+      return;
+    }
+
     let userId = this.authMediator.user.id;
     this.proxy.getUserPurchases(userId)
       .subscribe(products => this.products = products);

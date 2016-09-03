@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Router} from "@angular/router-deprecated";
 import {ApiProxy} from '../../services';
 import {CHART_DIRECTIVES} from 'ng2-charts/ng2-charts';
 import {AuthMediator} from "../../services/auth.mediator";
@@ -17,10 +18,16 @@ export class MyStatisticsComponent {
   pieChartData;
 
   constructor(
-    protected authMediator: AuthMediator,
-    protected proxy:ApiProxy) { }
+      protected router: Router,
+      protected authMediator: AuthMediator,
+      protected proxy:ApiProxy) { }
 
   ngOnInit() {
+    if (!this.authMediator.user) {
+      this.router.navigate(['/Store']);
+      return;
+    }
+
     this.user = this.authMediator.user;
     this.proxy.getUserSells(this.user.id)
       .subscribe(this.calcStatistics.bind(this));

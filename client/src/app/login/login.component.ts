@@ -25,6 +25,12 @@ export class Login {
   constructor(private authMediator: AuthMediator,
     private router: Router) { }
 
+  ngOnInit() {
+    if (this.authMediator.user) {
+      this.router.navigate(['Store']);
+    }
+  }
+
   onSubmit({email: email, password: password}) {
     console.log(email, password);
   }
