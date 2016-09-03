@@ -9,19 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<%= webpackConfig.metadata.title %>">
 
-  <link rel="icon" type="image/png" href="/assets/img/home/logo2.png">
-
-  <link rel="manifest" href="/assets/manifest.json">
+  <link rel="icon" type="image/png" href="/assets/img/home/logo.png">
   <meta name="theme-color" content="#00bcd4">
   <!-- end favicon -->
   <script id="facebook-jssdk" src="http://connect.facebook.net/en_US/sdk.js"></script>
-  <script src="/assets/Chart.bundle.min.js"></script>
-  <!-- base url -->
-  <base href="<%= webpackConfig.metadata.baseUrl %>">
-
-</head>
-
-<body dir="rtl">
   <script>
     window.fbAsyncInit = function () {
       FB.init({
@@ -32,10 +23,30 @@
       });
     };
   </script>
+  <script src="/assets/Chart.bundle.min.js"></script>
+  <!-- base url -->
+  <base href="<%= webpackConfig.metadata.baseUrl %>">
+  <style>
+    .for-mobile {
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body dir="rtl">
 
   <app>
-    Loading...
+    העמוד בטעינה...
   </app>
+
+  <section class="for-mobile">
+    <h1>
+      האתר של hand2hand אינו תומך כרגע בצפיה מהמובייל.
+      אנא בקרו אותנו דרך המחשב, תודה!
+    </h1>
+    <img src="assets/img/home/logo.png">
+  </section>
 
 
   <% if (webpackConfig.metadata.ENV === 'development') { %>

@@ -9,19 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="hand2hand">
 
-  <link rel="icon" type="image/png" href="/assets/img/home/logo2.png">
-
-  <link rel="manifest" href="/assets/manifest.json">
+  <link rel="icon" type="image/png" href="/assets/img/home/logo.png">
   <meta name="theme-color" content="#00bcd4">
   <!-- end favicon -->
   <script id="facebook-jssdk" src="http://connect.facebook.net/en_US/sdk.js"></script>
-  <script src="/assets/Chart.bundle.min.js"></script>
-  <!-- base url -->
-  <base href="/">
-
-</head>
-
-<body dir="rtl">
   <script>
     window.fbAsyncInit = function () {
       FB.init({
@@ -32,15 +23,35 @@
       });
     };
   </script>
+  <script src="/assets/Chart.bundle.min.js"></script>
+  <!-- base url -->
+  <base href="/">
+  <style>
+    .for-mobile {
+      display: none;
+    }
+  </style>
+
+</head>
+
+<body dir="rtl">
 
   <app>
-    Loading...
+    העמוד בטעינה...
   </app>
+
+  <section class="for-mobile">
+    <h1>
+      האתר של hand2hand אינו תומך כרגע בצפיה מהמובייל.
+      אנא בקרו אותנו דרך המחשב, תודה!
+    </h1>
+    <img src="assets/img/home/logo.png">
+  </section>
 
 
   
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<script type="text/javascript" src="polyfills.0a5fa375cda8df736015.bundle.js"></script><script type="text/javascript" src="vendor.7bcf428e8dee63c7e8c1.bundle.js"></script><script type="text/javascript" src="main.5b082729af43a6857172.bundle.js"></script></body>
+<script type="text/javascript" src="polyfills.0a5fa375cda8df736015.bundle.js"></script><script type="text/javascript" src="vendor.7bcf428e8dee63c7e8c1.bundle.js"></script><script type="text/javascript" src="main.bd4a16ae7237490a69f5.bundle.js"></script></body>
 </html>
