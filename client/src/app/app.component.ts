@@ -7,7 +7,7 @@ import { Store } from './store';
 import { RouterActive } from './router-active';
 import {SettingsComponent} from "./settings";
 import {ImageUploader} from "./services/image.uploader";
-import {SoldProductComponent} from "./components/sold.product.component";
+import {SoldProductComponent} from "./components";
 
 
 const ROUTS = [{
