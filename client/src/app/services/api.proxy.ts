@@ -6,9 +6,8 @@ import {ImageUploader} from "./image.uploader";
 let headers = new Headers({ 'Content-Type': 'application/json' });
 let options = new RequestOptions({ headers: headers });
 
-const DOMAIN = 'https://mta-shopapi.herokuapp.com/';
-// const DOMAIN = 'http://192.168.1.9:3000/';
-//const DOMAIN = '';
+//const DOMAIN = 'https://mta-shopapi.herokuapp.com/';
+const DOMAIN = '';
 const URL = DOMAIN + 'api/';
 
 @Injectable()
