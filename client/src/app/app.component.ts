@@ -44,6 +44,7 @@ const ROUTS = [{
             {{ route.title }}
           </button>
           <img class="fb-avatar" *ngIf="isUserLoggedIn && user" [routerLink]="['Settings']" [src]="user.picture.data.url" />
+          <i *ngIf="isUserLoggedIn && user" [routerLink]="['Settings']" class="material-icons setting-icon">perm_data_setting</i>
       </md-toolbar>
 
       <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>

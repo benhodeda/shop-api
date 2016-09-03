@@ -185,6 +185,17 @@ footer{
   margin-right: 15px;
   cursor: pointer;
 }
+.setting-icon {
+  cursor: pointer;
+  opacity: 0.7;
+  position: absolute;
+  top: 23px;
+  left: 32px;
+  font-size: 31pt !important;
+}
+.setting-icon:hover, .fb-avatar:hover + .setting-icon {
+  opacity: 0.9;
+}
 .chart {
   display: block; width: 100%;
 }
