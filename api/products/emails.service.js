@@ -53,7 +53,7 @@ function generateBuyerEmailContent(sellerName, product, buyerName) {
         "ביום " + moment().format('LLLL') + "<br />" +
         "תודה על תרומתך,"  + "<br />" +
         "Hand2Hand"  + "<br />" +
-        "<img src='https://mta-shopapi.herokuapp.com/images/logo.png' width='140' height='90' />";
+        "<img src='http://mta-shopapi.herokuapp.com/assets/img/logo.png' width='140' height='90' />";
 }
 
 function getSellerOptions(seller, product, buyer){
