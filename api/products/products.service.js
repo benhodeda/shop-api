@@ -291,7 +291,8 @@ function ProductsService() {
         var promises = [];
         return client.search({
             index: productsIndex,
-            q: "seller.id:" + userFid
+            q: "seller.id:" + userFid,
+            size: 1000
         }).then(function (results) {
             results.hits.hits.forEach(function (result) {
                 promises.push(updateProduct(result._id, partial));
