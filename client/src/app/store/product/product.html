@@ -45,7 +45,7 @@
           כבר
           {{ product.seller.rating.raters.length }}
           אנשים דירגו את המוכר/ת. דירוגו/ה הנוכחי הוא
-          {{ product.seller.rating.rate }}.
+          {{ product.seller.rating.rate | number: '.0-2' }}.
         </p>
       </section>
 
@@ -57,7 +57,7 @@
           כבר
           {{ product.seller.rating.raters.length }}
           אנשים דירגו אותך. דירוגך הנוכחי הוא
-          {{ product.seller.rating.rate }}.
+          {{ product.seller.rating.rate | number: '.0-2' }}.
         </p>
       </section>
 
