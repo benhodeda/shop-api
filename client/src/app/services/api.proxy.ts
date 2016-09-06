@@ -114,8 +114,8 @@ export class ApiProxy {
   buyProduct(id) {
     return this.http.post(URL + 'paypal/', JSON.stringify({
       product: id,
-      cancelUrl: 'https://mta-shopapi.herokuapp.com/#/store/product/' + id,
-      returnUrl: 'https://mta-shopapi.herokuapp.com/#/sold/' + id,
+      cancelUrl: 'http://mta-shopapi.herokuapp.com/#/store/product/' + id,
+      returnUrl: 'http://mta-shopapi.herokuapp.com/#/sold/' + id,
     }), options).map(x => <{ paymentApprovalUrl: any }>x.json());
   }
 
