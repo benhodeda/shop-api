@@ -110,7 +110,7 @@ function ProductsService() {
                             { from : 175, to : 200 },
                             { from : 200, to : 225 },
                             { from : 225, to : 250 },
-                            { from : 250 }
+                            { from : 250, to : 999 }
                         ]
                     }
                 },
@@ -122,11 +122,12 @@ function ProductsService() {
                             { from : 10, to : 20 },
                             { from : 20, to : 30 },
                             { from : 30, to : 40 },
+                            { from : 40, to : 50 },
                             { from : 50, to : 60 },
                             { from : 60, to : 70 },
                             { from : 70, to : 80 },
                             { from : 80, to : 90 },
-                            { from : 90 }
+                            { from : 90, to : 100 }
                         ]
                     }
                 }
